@@ -6,44 +6,53 @@
 
 /************************************* COMMON COMPONENT VARIABLES AND PROPERTIES *************************************/
 var _library = 'common';
-/*
-prx.icons = [{value: '',displayValue: 'None'},{value: 'arrow-l',displayValue: 'Arrow left'},{value: 'arrow-r',displayValue: 'Arrow right'},{value: 'arrow-u',displayValue: 'Arrow up'},{value: 'arrow-d',displayValue: 'Arrow down'}
-	,{value: 'delete',displayValue: 'Delete'}
-	,{value: 'plus',displayValue: 'Plus'}
-	,{value: 'minus',displayValue: 'Minus'}
-	,{value: 'check',displayValue: 'Check'}
-	,{value: 'gear',displayValue: 'Gear'}
-	,{value: 'refresh',displayValue: 'Refresh'}
-	,{value: 'forward',displayValue: 'Forward'}
-	,{value: 'back',displayValue: 'Back'}
-	,{value: 'grid',displayValue: 'Grid'}
-	,{value: 'star',displayValue: 'Star'}
-	,{value: 'alert',displayValue: 'Alert'}
-	,{value: 'info',displayValue: 'Info'}
-	];
-*/
-prx.comps={};
-prx.comps.onetoten = [{value: '1',displayValue: '1'},{value: '2',displayValue: '2'},{value: '3',displayValue: '3'},{value: '4',displayValue: '4'},{value: '5',displayValue: '5'}
-				,{value: '6',displayValue: '6'},{value: '7',displayValue: '7'},{value: '8',displayValue: '8'},{value: '9',displayValue: '9'},{value: '10',displayValue: '10'}
-				];
-prx.comps.defaultcolor = "666666";
-prx.comps.fonts = [{optgroup: true, displayValue: 'Webfonts', value: 'webfonts', options: prx.fonts._fonts.concat([{ displayValue: 'Manage project webfonts...', value: 'manage-project-webfonts'}])},{ optgroup: true, displayValue: 'Web-safe fonts', options: [{ value: 'sans-serif,Helvetica Neue,Arial', displayValue: 'Default' },{ value: 'Arial,sans-serif', displayValue: 'Arial' }, { value: 'Arial Black,sans-serif', displayValue: 'Arial Black' }, { value: 'Comic Sans MS,cursive', displayValue: 'Comic Sans MS' }, { value: 'Courier New,monospace', displayValue: 'Courier New' }, { value: 'Helvetica,sans-serif', displayValue: 'Helvetica' }, { value: 'Impact,sans-serif', displayValue: 'Impact' }, { value: 'Georgia,serif', displayValue: 'Georgia' }, { value: 'Times New Roman,serif', displayValue: 'Times New Roman' }, { value: 'Trebuchet MS,sans-serif', displayValue: 'Trebuchet MS' }, { value: 'Verdana,sans-serif', displayValue: 'Verdana' }, { value: 'serif', displayValue: 'serif' }, { value: 'sans-serif', displayValue: 'sans-serif' }, { value: 'cursive', displayValue: 'cursive' }, { value: 'monospace', displayValue: 'monospace' }] }, { optgroup: true, displayValue: 'Android fonts', options: [{value: 'Roboto Regular, sans-serif', displayValue: 'Roboto Regular, sans-serif' }] }, { optgroup: true, displayValue: 'Metro fonts', options: [{value: 'Segoe UI, sans-serif', displayValue: 'Segoe UI' }] }, { optgroup: true, displayValue: 'iOS fonts', options: [{value: 'HelveticaNeue, Helvetica, Verdana, Arial, sans-serif', displayValue: 'Helvetica Neue' },{value: 'HelveticaNeue-Medium, Helvetica, Verdana, Arial, sans-serif', displayValue: 'Helvetica Neue Medium' },{value: 'HelveticaNeue-Bold, Helvetica, Verdana, Arial, sans-serif', displayValue: 'Helvetica Neue Bold' },{value: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif', displayValue: 'Helvetica Neue Light' }] }]
-prx.comps.textsize = [{ value: "9", displayValue: "9"}, { value: "10", displayValue: "10"}, { value: "11", displayValue: "11"}, { value: "12", displayValue: "12"}, { value: "13", displayValue: "13"}, { value: "14", displayValue: "14"}, { value: "18", displayValue: "18"}, { value: "20", displayValue: "20"}, { value: "24", displayValue: "24"}, { value: "36", displayValue: "36"}, { value: "48", displayValue: "48"}, { value: "64", displayValue: "64"}, { value: "72", displayValue: "72"}, { value: "144", displayValue: "144"}, { value: "288", displayValue: "288"},];
 
-prx.commonproperties = {};
-prx.commonproperties.backgroundColor = { caption: 'Background', name: 'backgroundColor', type: 'colorpicker', value: function(item,name) { return item.backgroundColor; }, liveUpdate: 'background-color', changeProperty: {caption: 'Background color', selector: '.changeProperty-backgroundColor', property: 'background-color', transitionable: true } };
-prx.commonproperties.actions = { caption: 'Interactions', name: 'actions', type: 'action', value: function(item,name) { if (typeof(item.actions) == "undefined") { item.actions = []; } return item.actions.length; }, changeProperty: { caption: 'Interactions', selector: '', property: 'action', transitionable: false, changeable: false } };
-prx.commonproperties.borderWidth = { caption: 'Border', name: 'borderWidth', type: 'combo-select', value: function(item,name) { return item.borderWidth; }, values: { min: 0, max: 20, step: 1 }, changeProperty: { caption: 'Border width', selector: '.changeProperty-borderWidth', property: 'border-width', transitionable: true } };
-prx.commonproperties.borderColor = { caption: false, name: 'borderColor', type: 'colorpicker', value: function(item,name) { return item.borderColor; }, liveUpdate: 'border-color', changeProperty: { caption: 'Border color', selector: '.changeProperty-borderColor', property: 'border-top-color,border-bottom-color,border-left-color,border-right-color', transitionable: true } }; // firefox issue http://greensock.com/forums/topic/8373-timeline-not-detecting-initial-bordercolor/
-prx.commonproperties.borderRadius = { caption: '<span class="property-icon property-border-radius" title="Border radius"></span>', name: 'borderRadius', type: 'combo-select', value: function(item,name) { return item.borderRadius; }, values: { min: 0, max: 20, step: 1 }, changeProperty: { caption: 'Border radius', selector: '.changeProperty-borderRadius', property: 'border-radius', transitionable: true } };
-prx.commonproperties.text = { caption: 'Text', name: 'text', type: 'input', value: function(item,name) { return item.text; }, changeProperty: { caption: 'Text', selector: '.changeProperty-text', property: 'text', transitionable: false } };
-prx.commonproperties.textFont = { caption: false, name: 'textFont', type: 'select', value: function(item,name) { return item.textFont; }, values: function(){ return prx.comps.fonts }, changeProperty: { caption: 'Text font', selector: '.changeProperty-textFont', property: 'font-family', transitionable: false } };
-prx.commonproperties.textSize = { caption: false, name: 'textSize', type: 'combo-select', value: function(item,name) { return item.textSize; }, values: prx.comps.textsize, changeProperty: { caption: 'Text size', selector: '.changeProperty-textSize', property: 'font-size', transitionable: true } };
-prx.commonproperties.textColor = { caption: false, name: 'textColor', type: 'colorpicker', value: function(item,name) { return item.textColor; }, liveUpdate: 'color', changeProperty: { caption: 'Text color', selector: '.changeProperty-textColor', property: 'color', transitionable: true } };
-prx.commonproperties.textProperties = { caption: false, name: 'textProperties', type: 'checkbox', value: function(item,name) { if(typeof(item.textProperties) == "undefined") {item.textProperties = [];} return item.textProperties; }, values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}], changeProperty: { caption: 'Text properties', rerender: true } };
-prx.commonproperties.textAlign = { caption: false, name: 'textAlign', type: 'radio', value: function(item,name) { return item.textAlign; }, values: [{ value: 'left', displayValue: '<span class="property-icon property-align-left" title="Align left"></span>'}, { value: 'center', displayValue: '<span class="property-icon property-align-center" title="Align center"></span>'}, { value: 'right', displayValue: '<span class="property-icon property-align-right" title="Align right"></span>'}], changeProperty: { caption: 'Text align', selector: '.changeProperty-textAlign', property: 'text-align', transitionable: false } };
+prx.commonproperties.backgroundColorActive = { caption: 'Active', name: 'backgroundColorActive', proptype: 'background-color-2-active', type: 'colorpicker', value: function(item,name) { return item.backgroundColorActive; }, liveUpdate: 'background-color', changeProperty: {caption: 'Active Background color', selector: '.changeProperty-backgroundColorActive', property: 'background-color', transitionable: true } }
 
-prx.tabbargradient = '-webkit-gradient(linear, 38% 0%, 60% 70%, from(#dde9f0), to(#3fc5f8), color-stop(.6,#79b2ec),color-stop(.7,#2e91e5))';
+prx.commonproperties.borderColorActive = { caption: 'Active', name: 'borderColorActive', proptype: 'border-color-2-active', type: 'colorpicker', value: function(item,name) { return item.borderColorActive; }, liveUpdate: 'border-color', changeProperty: { caption: 'Active Border color', selector: '.changeProperty-borderColorActive', property: 'border-top-color,border-bottom-color,border-left-color,border-right-color', transitionable: true } } // firefox issue http://greensock.com/forums/topic/8373-timeline-not-detecting-initial-bordercolor/
+
+prx.commonproperties.textSubtitle = { caption: 'Subtitle', name: 'subtitle', proptype: 'text-2-subtitle', type: 'input', value: function(item,name) { return item.subtitle; }, changeProperty: { caption: 'Subtitle', selector: '.changeProperty-subtitle', property: 'text', transitionable: false } }
+
+prx.commonproperties.textFontSubtitle = { caption: false, name: 'subtitleFont', proptype: 'font-family-2-subtitle', type: 'select', value: function(item,name) { return item.subtitleFont; }, values: function(){ return prx.comps.fonts }, changeProperty: { caption: 'Subtitle font', selector: '.changeProperty-subtitleFont', property: 'font-family', transitionable: false } }
+
+prx.commonproperties.textSizeActive = { caption: false, name: 'textSizeActive', proptype: 'font-size-2-active', type: 'combo-select', value: function(item,name) { return item.textSizeActive; }, values: prx.comps.textsize, changeProperty: { caption: 'Active Text size', selector: '.changeProperty-textSizeActive', property: 'font-size', transitionable: true } }
+prx.commonproperties.textSizeSubtitle = { caption: false, name: 'subtitleSize', proptype: 'font-size-3-subtitle', type: 'combo-select', value: function(item,name) { return item.subtitleSize; }, values: prx.comps.textsize, changeProperty: { caption: 'Subtitle size', selector: '.changeProperty-subtitleSize', property: 'font-size', transitionable: true } }
+
+prx.commonproperties.textColorActive = { caption: 'Active', name: 'textColorActive', proptype: 'font-color-2-active', type: 'colorpicker', value: function(item,name) { return item.textColorActive; }, liveUpdate: 'color', changeProperty: { caption: 'Active Text color', selector: '.changeProperty-textColorActive', property: 'color', transitionable: true } }
+prx.commonproperties.textColorSubtitle = { caption: false, name: 'subtitleColor', proptype: 'font-color-3-subtitle', type: 'colorpicker', value: function(item,name) { return item.subtitleColor; }, liveUpdate: 'color', changeProperty: { caption: 'Subtitle color', selector: '.changeProperty-subtitleColor', property: 'color', transitionable: true } }
+
+prx.commonproperties.textPropertiesSubtitle = { caption: false, name: 'subtitleProperties', proptype: 'text-properties-2-subtitle', type: 'checkbox', value: function(item,name) { if(typeof(item.subtitleProperties) == "undefined") {item.subtitleProperties = [];} return item.subtitleProperties; }, values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}], changeProperty: { caption: 'Subtitle Text properties', rerender: true } }
+
+prx.commonproperties.textAlignSubtitle = { caption: false, name: 'subtitleAlign', proptype: 'text-properties-2-subtitle', type: 'radio', value: function(item,name) { return item.subtitleAlign; }, values: [{ value: 'left', displayValue: '<span class="property-icon property-align-left" title="Align left"></span>'}, { value: 'center', displayValue: '<span class="property-icon property-align-center" title="Align center"></span>'}, { value: 'right', displayValue: '<span class="property-icon property-align-right" title="Align right"></span>'}], changeProperty: { caption: 'Subtitle Text align', selector: '.changeProperty-subtitleAlign', property: 'text-align', transitionable: false } }
+
+prx.commonproperties.labelInput = { caption: false, name: 'label', type: 'input', value: function(item,name) { return item.label; } ,changeProperty: { caption: 'Label text', rerender: true } }
+prx.commonproperties.textSizeLabel = { caption: false, name: 'labelSize', proptype: 'font-size-4-label', type: 'combo-select', value: function(item,name) { return item.labelSize; }, values: prx.comps.textsize, changeProperty: { caption: 'Label size', selector: '.changeProperty-labelSize', property: 'font-size', transitionable: true } };
+prx.commonproperties.textColorLabel = { caption: false, name: 'labelColor', proptype: 'font-color-4-label', type: 'colorpicker', value: function(item,name) { return item.labelColor; }, liveUpdate: 'color', changeProperty: { caption: 'Label color', selector: '.changeProperty-labelColor', property: 'color', transitionable: true } }
+prx.commonproperties.textPropertiesLabel = { caption: false, name: 'labelProperties', proptype: 'text-properties-3-label', type: 'checkbox', value: function(item,name) { if(typeof(item.labelProperties) == "undefined") {item.labelProperties = [];} return item.labelProperties; }, values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}], changeProperty: { caption: 'Label Text properties', rerender: true } }
+prx.commonproperties.textAlignLabel = { caption: false, name: 'labelAlign', proptype: 'text-properties-3-label', type: 'radio', value: function(item,name) { return item.labelAlign; }, values: [{ value: 'left', displayValue: '<span class="property-icon property-align-left" title="Align left"></span>'}, { value: 'center', displayValue: '<span class="property-icon property-align-center" title="Align center"></span>'}, { value: 'right', displayValue: '<span class="property-icon property-align-right" title="Align right"></span>'}], changeProperty: { caption: 'Label Text align', selector: '.changeProperty-labelAlign', property: 'text-align', transitionable: false } }
+
+prx.commonproperties.iconSize = { caption: 'Size', name: 'iconSize', proptype: 'icon-size', type: 'select', value: function(item,name) { return item.iconSize;}, values: [{ value: '1', displayValue: 'Very small'}, { value: '2', displayValue: 'Small'}, { value: '3', displayValue: 'Normal'}, { value: '4', displayValue: 'Large'}, { value: '5', displayValue: 'Full'}], changeProperty: { caption: 'Icon size', rerender: true, changeable: false } }
+prx.commonproperties.thumbSize = { caption: 'Size', name: 'thumbSize', proptype: 'thumb-size', type: 'select', value: function(item,name) { return item.thumbSize;}, values: [{ value: '1', displayValue: 'Very small'}, { value: '2', displayValue: 'Small'}, { value: '3', displayValue: 'Normal'}, { value: '4', displayValue: 'Large'}, { value: '5', displayValue: 'Full'}], changeProperty: { caption: 'Thumbnail size', rerender: true, changeable: false } }
+
+prx.commonproperties.iconActiveMask = { caption: 'Active', name: 'iconColorActive', proptype: 'icon-color-active', type: 'colorpicker', value: function(item,name) { return item.iconColorActive; }, liveUpdate: 'background-color', changeProperty: { caption: 'Active icon color', rerender: true } }
+
+prx.commonproperties.iconSource = { caption: false, name: 'imgSrc', proptype: 'icon-source', type: 'combo-asset', displayValue: function(item,name) { if(item.imgSrc.url == '') { return 'No asset selected.'; } return item.imgSrc.name; } ,value: function(item,name) { return $.toJSON({ allow: 'image', asset: item.imgSrc }); } ,changeProperty: { caption: 'Icon', rerender: true } }
+prx.commonproperties.iconSourceSecondary = { caption: false, name: 'imgSrc2', proptype: 'icon-source-2-secondary', type: 'combo-asset', displayValue: function(item,name) { if(item.imgSrc2.url == '') { return 'No asset selected.'; } return item.imgSrc2.name; } ,value: function(item,name) { return $.toJSON({ allow: 'image', asset: item.imgSrc2 }); } ,changeProperty: { caption: 'Secondary Icon', rerender: true } }
+prx.commonproperties.iconSourceTabs = { caption: false, name: 'imgSrc', proptype: 'icon-source', type: 'combo-asset' ,displayValue: function(item,name,index) { if(item.tabs[index].imgSrc.url == '') { return 'No icon selected'; } return item.tabs[index].imgSrc.name; } ,value: function(item,name,index) { return $.toJSON({ allow: 'image', asset: item.tabs[index].imgSrc }); } ,changeProperty: { caption: 'Icon', rerender: true } }
+prx.commonproperties.iconSourceSecondaryTabs = { caption: false, name: 'imgSrc2', proptype: 'icon-source-2-secondary', type: 'combo-asset', displayValue: function(item,name) { if(item.tabs[index].imgSrc2.url == '') { return 'No asset selected.'; } return item.tabs[index].imgSrc2.name; } ,value: function(item,name) { return $.toJSON({ allow: 'image', asset: item.tabs[index].imgSrc2 }); } ,changeProperty: { caption: 'Secondary Icon', rerender: true } }
+prx.commonproperties.iconSourceList = { caption: false, name: 'imgSrc', proptype: 'icon-source', type: 'combo-asset', displayValue: function(item,name,index) { if(item.listitems[index].imgSrc.url == '') { return 'No icon selected'; } return item.listitems[index].imgSrc.name; }, value: function(item,name,index) { return $.toJSON({ allow: 'image', asset: item.listitems[index].imgSrc }); }, changeProperty: { caption: 'Icon', rerender: true } }
+prx.commonproperties.iconSourceSecondaryList = { caption: false, name: 'imgSrc2', proptype: 'icon-source-2-secondary', type: 'combo-asset', displayValue: function(item,name) { if(item.listitems[index].imgSrc2.url == '') { return 'No asset selected.'; } return item.listitems[index].imgSrc2.name; } ,value: function(item,name) { return $.toJSON({ allow: 'image', asset: item.listitems[index].imgSrc2 }); } ,changeProperty: { caption: 'Secondary Icon', rerender: true } }
+
+prx.commonproperties.thumbnailSource = { caption: false, name: 'thumbnail', proptype: 'thumbnail-source', type: 'combo-asset', displayValue: function(item,name,index) { if(typeof(item.thumbnail) == 'undefined' || item.thumbnail.url == '') { return 'No thumbnail selected'; } return item.thumbnail.name; }, value: function(item,name,index) { return $.toJSON({ allow: 'image', asset: item.thumbnail }); }, changeProperty: { caption: 'Thumbnail', rerender: true } }
+prx.commonproperties.thumbnailSourceList = { caption: false, name: 'thumbnail', proptype: 'thumbnail-source-list', type: 'combo-asset', displayValue: function(item,name,index) { if(typeof(item.listitems[index].thumbnail) == 'undefined' || item.listitems[index].thumbnail.url == '') { return 'No thumbnail selected'; } return item.listitems[index].thumbnail.name; }, value: function(item,name,index) { return $.toJSON({ allow: 'image', asset: item.listitems[index].thumbnail }); }, changeProperty: { caption: 'Thumbnail', rerender: true } }
+
+prx.commonproperties.shadowColor = { caption: 'Shadow', name: 'shadowColor', proptype: 'shadow-color', type: 'colorpicker', value: function(item,name) { return item.shadowColor; }, changeProperty: { caption: 'Shadow', rerender: true, changeable: false} }
+
+prx.commonproperties.borderWidth = { caption: 'Border', name: 'borderWidth', proptype: 'border-width', type: 'combo-select', value: function(item,name) { return item.borderWidth; }, values: { min: 1, max: 5, step: 1 } ,changeProperty: { caption: 'Border width', selector:'.changeProperty-borderWidth', property:'border-width', transitionable: true } }
+prx.commonproperties.borderStyle = { caption: false, name: 'borderStyle', proptype: 'border-style', type: 'select', value: function(item,name) { if(typeof(item.borderStyle) == "undefined") { item.borderStyle = "solid"; } return item.borderStyle; }, values: [{ value: "solid", displayValue: "Solid"},{ value: "dotted", displayValue: "Dotted"},{ value: "dashed", displayValue: "Dashed"},{ value: "double", displayValue: "Double"},{ value: "none", displayValue: "None"}], changeProperty: { caption: 'Border Style', selector: '.changeProperty-borderStyle', property: 'border-style', transitionable: false } }
+
+prx.commonproperties.placeholderInput = { caption: false, name: 'placeholder', proptype: 'placeholder-input', type: 'input', value: function(item,name) { return item.placeholder;}, changeProperty: { caption: 'Placeholder text', rerender: true } }
+prx.commonproperties.placeholderColor = { caption: 'Placeholder Color', name: 'placeholderColor', proptype: 'placeholder-color', type: 'colorpicker', value: function(item,name) { if(typeof(item.placeholderColor)=='undefined') { return '999999'; } return item.placeholderColor; }, liveUpdate: 'color', changeProperty: { caption: 'Placeholder color', selector: '.changeProperty-placeholderColor', property: 'color', transitionable: true } }
 
 
 /************************************* COMPONENT TYPES *************************************/
@@ -52,7 +61,7 @@ prx.tabbargradient = '-webkit-gradient(linear, 38% 0%, 60% 70%, from(#dde9f0), t
 
 // TYPE: SYMBOL
 prx.types.symbol = {
-	name: "symbol"	
+	name: "symbol"
 	,onDisplay: function(item,containerid) {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
 		var _symbolindex = prx.stc.containers.getIndexFromId(item.symbolid);
@@ -61,7 +70,7 @@ prx.types.symbol = {
 		if (_symbolindex > -1) {
 			var _symbol_width="100%";
 			var _symbol_height="100%";
-			
+
 			if(typeof(prx.symbols[_symbolindex].states) == "undefined") {
 				var _bg = prx.symbols[_symbolindex].background;
 				var dataState = '';
@@ -76,7 +85,7 @@ prx.types.symbol = {
 				var _bg = prx.symbols[_symbolindex].states[stateindex].background;
 				var dataState = 'data-state-id="'+prx.symbols[_symbolindex].states[stateindex].id+'"';
 			}
-			
+
 			if (item.scroll!='') {
 				if (item.scroll=='horizontal' || item.scroll=='omni') {
 					if(typeof(prx.symbols[_symbolindex].dimensions) != "undefined") {
@@ -91,32 +100,32 @@ prx.types.symbol = {
 					} else {
 						_symbol_height = prx.symbols[_symbolindex].states[stateindex].dimensions[1]+'px';
 					}
-				}	
+				}
 			}
-			
+
 			/* ADDED THESE LINES IN ORDER TO MAKE SYMBOLS BEHAVE RESPONSIVELY */
 			if (item.scroll == 'vertical') {
 				var _symbol_dims = prx.componentsHelper.getRealDims(item);
 				_symbol_width = _symbol_dims.width+'px';
 			}
-			
+
 			if (item.scroll == 'horizontal') {
 				var _symbol_dims = prx.componentsHelper.getRealDims(item);
 				_symbol_height = _symbol_dims.height+'px';
 			}
 			/* /ADDED THESE LINES IN ORDER TO MAKE SYMBOLS BEHAVE RESPONSIVELY */
-			
+
 			if(typeof(item.propagateevents) == "undefined") { item.propagateevents = false; }
-			
-			 
+
+
 			cReturn='<div id="' + _id + '" class="box type-symbol '+((item.propagateevents && item.scroll == '') ? 'type-symbol-transparent' : '')+'" data-symbol-id="'+item.symbolid+'" '+dataState+' style="position: absolute;"><div id="'+_id+'-inner" style="position: absolute; overflow: hidden !important; height: 100%; width: 100%;"><div id="' + _id + '-scroll" class="symbol-scroll" style="width: '+_symbol_width+'; height: '+_symbol_height+'; position: absolute; overflow: hidden; background-color: '+prx.utils.getColor(_bg)+';">' + prx.stc.containers.render(item,containerid,stateindex) + '</div></div></div>';
 		} else {
 			_appenditem = false;
 			if(prx.editor) {
-				return prx.types.missingComponent.onDisplay(item,containerid)
+				return prx.componentsHelper.missingComponent(item,containerid)
 			}
 		}
-		
+
 		return cReturn;
 	}
 	,onResizeStop: function(item, containerid) {
@@ -124,7 +133,7 @@ prx.types.symbol = {
 		//prx.refreshPanel();
 		//$('#' + _id).click();
 		//prx.triggerProperties(_id);
-	} 
+	}
 	,afterDisplay: function(item, containerid, pageid) {
 		var stateindex = 0;
 		if(typeof(item.symbolstateid) != "undefined") {
@@ -176,7 +185,7 @@ prx.types.symbol = {
       					}
 	      			}]]
 	    },
-	      			
+
 		{
 			caption: 'Scroll properties',
 			properties: [[
@@ -213,14 +222,14 @@ prx.types.symbol = {
 		      								} else {
 		      									$('#p-'+item.id+'-scrollbars').prop('checked', false)
 		      								}
-		      							} 
+		      							}
 	      								if(item.scroll == 'vertical') {
 		      								if(item.vscrollbar) {
 		      									$('#p-'+item.id+'-scrollbars').prop('checked', true)
 		      								} else {
 		      									$('#p-'+item.id+'-scrollbars').prop('checked', false)
 		      								}
-		      							} 
+		      							}
 	      							}
 	      						}
 	      					}
@@ -387,6 +396,7 @@ prx.types.symbol = {
 	      			},{
 	      				caption: 'Background'
               			,name: 'background'
+              			,proptype: 'background-color'
               			,type: 'colorpicker'
               			,value: function(item,name) {
               				return item.background
@@ -402,25 +412,10 @@ prx.types.symbol = {
       					}
 	      			}]]
 	      			}
-	              	
+
 	              ]
 };
 
-
-prx.types.missingComponent = {
-	name: "missingComponent"
-	,onDisplay: function(item,containerid) {
-		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
-		var cErr = 'Component "'+item.type+'" is missing.'
-		if(item.type == "symbol") {
-			cErr = 'Container "'+item.caption+'" is missing.'
-		}
-		var cR = '<div id="'+_id+'" class="box pos type-missingComponent" style="background: red;">';
-		cR += '<div class="error-msg">'+cErr+'</div>'
-		cR += '</div>';
-		return cR;
-	} 
-}
 
 /***** /SPECIAL COMPONENTS *****/
 
@@ -440,17 +435,17 @@ prx.types.text = {
 		return cReturn;
 	}
 	,editableProperties: [
-		{ 
-			caption: 'Text', 
-			name: 'text', 
-			type: 'textarea', 
+		{
+			caption: 'Text',
+			name: 'text',
+			type: 'textarea',
 			value: function(item,name) { return item.text; },
 			changeProperty: {
 	      						caption: 'Text',
 	      						selector: '.text-contents',
 	      						property: 'text',
 	      						transitionable: false
-	      					 } 
+	      					 }
 		}
 	]
 	,interactions: [
@@ -477,11 +472,12 @@ prx.types.text = {
 			caption: 'Text',
 			properties: [
 				[
-				{ 
-					caption: false, 
-					name: 'textFont', 
-					type: 'select', 
-					value: function(item,name) { return item.textFont; }, 
+				{
+					caption: false,
+					name: 'textFont',
+					proptype: 'font-family',
+					type: 'select',
+					value: function(item,name) { return item.textFont; },
 					values: function(){ return prx.comps.fonts }
 		      		,onChange: function(item) {
 		      			if(item.autoResize) {
@@ -493,20 +489,20 @@ prx.types.text = {
 							    	'line-height': $('#'+item.id+' [data-editableproperty="text"]').css('line-height'),
 							    	'text-decoration': $('#'+item.id+' [data-editableproperty="text"]').css('text-decoration'),
 							    	'font-weight': $('#'+item.id+' [data-editableproperty="text"]').css('font-weight'),
-							    	'font-style': $('#'+item.id+' [data-editableproperty="text"]').css('font-style'), 
+							    	'font-style': $('#'+item.id+' [data-editableproperty="text"]').css('font-style'),
 							    	width: 'auto',
 							        height: 'auto',
 							        marginLeft: '5px'
 							    })
 							    .appendTo('body')
-					    
-							// no provision for dynamic properties 
-							    
+
+							// no provision for dynamic properties
+
 							prx.data.items[prx.iSelectedIndex].wtype = "fixed";
 							prx.data.items[prx.iSelectedIndex].width = $temp.width();
 							prx.data.items[prx.iSelectedIndex].htype = "fixed";
 							prx.data.items[prx.iSelectedIndex].height = $temp.height();
-							
+
 							$temp.remove();
 							prx.items.update(item);
 		      			}
@@ -516,18 +512,19 @@ prx.types.text = {
   						selector: '.liveUpdate-textColor',
   						property: 'font-family',
   						transitionable: false
-  					} 
-					 
+  					}
+
 				},
-				{ 
-					caption: false, 
-					name: 'textSize', 
-					type: 'combo-select', 
-					value: function(item,name) { return item.textSize; }, 
+				{
+					caption: false,
+					name: 'textSize',
+					proptype: 'font-size',
+					type: 'combo-select',
+					value: function(item,name) { return item.textSize; },
 					values: prx.comps.textsize ,
 		      		onChange: function(item) {
 		      			//if(item.autoResize) {
-		      				
+
 		      				prx.items.update(item);
 		      				var $temp = $('<span>'+item.text+ '&nbsp;' +'</span>')
 							    .css({
@@ -536,20 +533,20 @@ prx.types.text = {
 							    	'line-height': $('#'+item.id+' [data-editableproperty="text"]').css('line-height'),
 							    	'text-decoration': $('#'+item.id+' [data-editableproperty="text"]').css('text-decoration'),
 							    	'font-weight': $('#'+item.id+' [data-editableproperty="text"]').css('font-weight'),
-							    	'font-style': $('#'+item.id+' [data-editableproperty="text"]').css('font-style'), 
+							    	'font-style': $('#'+item.id+' [data-editableproperty="text"]').css('font-style'),
 							    	width: 'auto',
 							        height: 'auto',
 							        marginLeft: '5px'
 							    })
 							    .appendTo('body')
-					    
-							// no provision for dynamic properties 
-							    
+
+							// no provision for dynamic properties
+
 							prx.data.items[prx.iSelectedIndex].wtype = "fixed";
 							prx.data.items[prx.iSelectedIndex].width = $temp.width();
 							prx.data.items[prx.iSelectedIndex].htype = "fixed";
 							prx.data.items[prx.iSelectedIndex].height = $temp.height();
-							
+
 							$temp.remove();
 							prx.items.update(item);
 		      			//}
@@ -565,11 +562,12 @@ prx.types.text = {
 		      	]
 				,
 				[
-				{ 
-					caption: false, 
-					name: 'textProperties', 
-					type: 'checkbox', 
-					value: function(item,name) { if(typeof(item.textProperties) == "undefined") {item.textProperties = [];} return item.textProperties; }, 
+				{
+					caption: false,
+					name: 'textProperties',
+					proptype: 'text-properties',
+					type: 'checkbox',
+					value: function(item,name) { if(typeof(item.textProperties) == "undefined") {item.textProperties = [];} return item.textProperties; },
 					values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}],
 		      		onChange: function(item) {
 		      			if(item.autoResize) {
@@ -581,20 +579,20 @@ prx.types.text = {
 							    	'line-height': $('#'+item.id+' [data-editableproperty="text"]').css('line-height'),
 							    	'text-decoration': $('#'+item.id+' [data-editableproperty="text"]').css('text-decoration'),
 							    	'font-weight': $('#'+item.id+' [data-editableproperty="text"]').css('font-weight'),
-							    	'font-style': $('#'+item.id+' [data-editableproperty="text"]').css('font-style'), 
+							    	'font-style': $('#'+item.id+' [data-editableproperty="text"]').css('font-style'),
 							    	width: 'auto',
 							        height: 'auto',
 							        marginLeft: '5px'
 							    })
 							    .appendTo('body')
-					    
-							// no provision for dynamic properties 
-							    
+
+							// no provision for dynamic properties
+
 							prx.data.items[prx.iSelectedIndex].wtype = "fixed";
 							prx.data.items[prx.iSelectedIndex].width = $temp.width();
 							prx.data.items[prx.iSelectedIndex].htype = "fixed";
 							prx.data.items[prx.iSelectedIndex].height = $temp.height();
-							
+
 							$temp.remove();
 							prx.items.update(item);
 		      			}
@@ -667,8 +665,8 @@ prx.types.text = {
 				caption: 'Style',
 				properties: [
 					[
-						prx.commonproperties.backgroundColor						
-					
+						prx.commonproperties.backgroundColor
+
 					],
 					[
 						{
@@ -688,20 +686,20 @@ prx.types.text = {
 									    	'line-height': $('#'+item.id+' [data-editableproperty="text"]').css('line-height'),
 									    	'text-decoration': $('#'+item.id+' [data-editableproperty="text"]').css('text-decoration'),
 									    	'font-weight': $('#'+item.id+' [data-editableproperty="text"]').css('font-weight'),
-									    	'font-style': $('#'+item.id+' [data-editableproperty="text"]').css('font-style'), 
+									    	'font-style': $('#'+item.id+' [data-editableproperty="text"]').css('font-style'),
 									    	width: 'auto',
 									        height: 'auto',
 									        marginLeft: '5px'
 									    })
 									    .appendTo('body')
-							    
-									// no provision for dynamic properties 
-									    
+
+									// no provision for dynamic properties
+
 									prx.data.items[prx.iSelectedIndex].wtype = "fixed";
 									prx.data.items[prx.iSelectedIndex].width = $temp.width();
 									prx.data.items[prx.iSelectedIndex].htype = "fixed";
 									prx.data.items[prx.iSelectedIndex].height = $temp.height();
-									
+
 									$temp.remove();
 									prx.items.update(item);
 				      			}
@@ -711,7 +709,7 @@ prx.types.text = {
 		  						selector: '.foo',
 		  						property: 'bar',
 		  						transitionable: false
-		  					} 
+		  					}
 						}
 					]
 				]
@@ -789,7 +787,7 @@ prx.types.richtext = {
 			    		caption: 'Text',
 			    		rerender: true
 			    	}
-				}	
+				}
 				],
 		        [
 	  			{
@@ -829,7 +827,7 @@ prx.types.richtext = {
 			]
 		]
 	}
-	               
+
    ]
 };
 
@@ -842,12 +840,12 @@ prx.types.rectangle = {
 		if(typeof(item.borderStyle) == "undefined") { item.borderStyle = "solid"; }
 		if(typeof(item.text) == "undefined") { item.text = '' }
 		if(typeof(item.text) == "undefined") { item.textProperties = [] }
-		
+
 		var _props = (jQuery.inArray("bold",item.textProperties)>-1) ? " font-weight: bold;" : "";
 		_props += (jQuery.inArray("italic",item.textProperties)>-1) ? " font-style: italic;" : "";
 		_props += (jQuery.inArray("underline",item.textProperties)>-1) ? " text-decoration: underline;" : "";
-		
-		
+
+
 		var cR = '';
 		cR += '<div id="' + _id + '" class="box pos type-rectangle">';
 		cR += '<style>';
@@ -887,84 +885,89 @@ prx.types.rectangle = {
 		caption: 'Text',
 		properties: [
 			[
-			{ 
-				caption: false, 
-				name: 'textFont', 
-				type: 'select', 
-				value: function(item,name) { 
+			{
+				caption: false,
+				name: 'textFont',
+				proptype: 'font-family',
+				type: 'select',
+				value: function(item,name) {
 					if(typeof(item.textFont) == "undefined") { item.textFont = 'sans-serif,Helvetica Neue,Arial' }
-					return item.textFont; 
-				}, 
+					return item.textFont;
+				},
 				values: function(){ return prx.comps.fonts }
 	      		,changeProperty: {
 					caption: ' Text font',
 					selector: '.liveUpdate-textColor',
 					property: 'font-family',
 					transitionable: false
-				 } 
-				 
+				 }
+
 			},
-			{ 
-				caption: false, 
-				name: 'textSize', 
-				type: 'combo-select', 
-				value: function(item,name) { 
+			{
+				caption: false,
+				name: 'textSize',
+				proptype: 'font-size',
+				type: 'combo-select',
+				value: function(item,name) {
 					if(typeof(item.textSize) == "undefined") { item.textSize = 16 }
-					return item.textSize; 
-				}, 
+					return item.textSize;
+				},
 				values: prx.comps.textsize
 	      		,changeProperty: {
 					caption: ' Text size',
 					selector: '.liveUpdate-textColor',
 					property: 'font-size',
 					transitionable: false
-				 } 
+				 }
 			}
-	      	,{ 
-	      		caption: false, 
-	      		name: 'textColor', 
-	      		type: 'colorpicker', 
-	      		value: function(item,name) { 
+	      	,{
+	      		caption: false,
+	      		name: 'textColor',
+	      		proptype: 'font-color',
+	      		type: 'colorpicker',
+	      		value: function(item,name) {
 	      			if(typeof(item.textColor) == "undefined") { item.textColor = '#2E2E2E' }
-	      			return item.textColor; 
-	      		}, 
+	      			return item.textColor;
+	      		},
 	      		liveUpdate: 'color'
 	      		,changeProperty: {
 					caption: ' Text color',
 					selector: '.liveUpdate-textColor',
 					property: 'color',
 					transitionable: true
-				 }  
+				 }
 	      	}
 	      	]
 			,
 			[
-			{ 
-				caption: false, 
-				name: 'textProperties', 
-				type: 'checkbox', 
-				value: function(item,name) { if(typeof(item.textProperties) == "undefined") {item.textProperties = [];} return item.textProperties; }, 
+			{
+				caption: false,
+				name: 'textProperties',
+				proptype: 'text-properties',
+				type: 'checkbox',
+				value: function(item,name) { if(typeof(item.textProperties) == "undefined") {item.textProperties = [];} return item.textProperties; },
 				values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}],
 	      		changeProperty: {
 					caption: 'Text Properties',
 					rerender: true
       			}
 			}
-	  		,{ 
-	  			caption: false, 
-	  			name: 'textAlign', 
-	  			type: 'radio', 
-	  			value: function(item,name) { 
+	  		,{
+	  			caption: false,
+	  			name: 'textAlign',
+	  			proptype: 'text-align',
+	  			type: 'radio',
+	  			value: function(item,name) {
 	  				if(typeof(item.textAlign) == "undefined") { item.textAlign = 'center' }
-	  				return item.textAlign; 
-	  			}, 
+	  				return item.textAlign;
+	  			},
 	  			values: [{ value: 'left', displayValue: '<span class="property-icon property-align-left" title="Align left"></span>'}, { value: 'center', displayValue: '<span class="property-icon property-align-center" title="Align center"></span>'}, { value: 'right', displayValue: '<span class="property-icon property-align-right" title="Align right"></span>'}],
 	  			changeProperty: {
 					caption: 'Text Align',
 					selector: '.liveUpdate-textColor',
 					property: 'text-align',
 					transitionable: false
-      			} 
+      			}
 	  		}
 	  		]
 		]
@@ -973,11 +976,12 @@ prx.types.rectangle = {
 			caption: 'Style',
 			properties: [
 	      			[
-	      				{ 
-	      					caption: 'Background', 
-	      					name: 'backgroundColor', 
-	      					type: 'colorpicker', 
-	      					value: function(item,name) { return item.backgroundColor; }, 
+	      				{
+	      					caption: 'Background',
+	      					name: 'backgroundColor',
+	      					proptype: 'background-color',
+	      					type: 'colorpicker',
+	      					value: function(item,name) { return item.backgroundColor; },
 	      					liveUpdate: 'background-color',
 	      					changeProperty: {
 	      						caption: 'Background Color',
@@ -989,11 +993,12 @@ prx.types.rectangle = {
 	      			]
 	      			,
 	      			[
-	      				{ 
-	      					caption: 'Border', 
-	      					name: 'borderWidth', 
-	      					type: 'combo-select', 
-	      					value: function(item,name) { return item.borderWidth; }, 
+	      				{
+	      					caption: 'Border',
+	      					name: 'borderWidth',
+	      					proptype: 'border-width',
+	      					type: 'combo-select',
+	      					value: function(item,name) { return item.borderWidth; },
 	      					values: { min: 0, max: 20, step: 1 } ,
 	      					changeProperty: {
 	      						caption: 'Border Width',
@@ -1002,13 +1007,14 @@ prx.types.rectangle = {
 	      						transitionable: true
 	      					}
 	      				}
-	      				,{ 
+	      				,{
 		      				caption: false,
-		      				name: 'borderStyle', 
-		      				type: 'select', 
-		      				value: function(item,name) { 
+		      				name: 'borderStyle',
+		      				proptype: 'border-style',
+		      				type: 'select',
+		      				value: function(item,name) {
 		      					if(typeof(item.borderStyle) == "undefined") { item.borderStyle = "solid"; }
-		      					return item.borderStyle; 
+		      					return item.borderStyle;
 		      				},
 		      				values: [{ value: "solid", displayValue: "Solid"},{ value: "dotted", displayValue: "Dotted"},{ value: "dashed", displayValue: "Dashed"},{ value: "double", displayValue: "Double"},{ value: "none", displayValue: "None"}],
 	      					changeProperty: {
@@ -1019,11 +1025,12 @@ prx.types.rectangle = {
 	      					}
 		      			}
 	      				,
-	      				{ 
-	      					caption: false, 
-	      					name: 'borderColor', 
-	      					type: 'colorpicker', 
-	      					value: function(item,name) { return item.borderColor; }, 
+	      				{
+	      					caption: false,
+	      					name: 'borderColor',
+	      					proptype: 'border-color',
+	      					type: 'colorpicker',
+	      					value: function(item,name) { return item.borderColor; },
 	      					liveUpdate: 'border-color' ,
 	      					changeProperty: {
 	      						caption: 'Border Color',
@@ -1032,13 +1039,14 @@ prx.types.rectangle = {
 	      						transitionable: true
 	      					}
 	      				}
-	      			],[{ 
-		      				caption: '<span class="property-icon property-border-radius" title="Border radius"></span>', 
-		      				name: 'borderRadius', 
-		      				type: 'combo-select', 
-		      				value: function(item,name) { 
+	      			],[{
+		      				caption: '<span class="property-icon property-border-radius" title="Border radius"></span>',
+		      				name: 'borderRadius',
+		      				proptype: 'border-radius',
+		      				type: 'combo-select',
+		      				value: function(item,name) {
 		      					if(item.borderRadius == parseInt(item.borderRadius)) { return item.borderRadius += 'px'; }
-		      					return item.borderRadius; 
+		      					return item.borderRadius;
 		      				},
 		      				values: [{ value: "0px", displayValue: "0px"}, { value: "1px", displayValue: "1px"}, { value: "2px", displayValue: "2px"}, { value: "3px", displayValue: "3px"}, { value: "4px", displayValue: "4px"}, { value: "5px", displayValue: "5px"}, { value: "6px", displayValue: "6px"}, { value: "7px", displayValue: "7px"}, { value: "8px", displayValue: "8px"}, { value: "9px", displayValue: "9px"}, { value: "10px", displayValue: "10px"}, { value: "11px", displayValue: "11px"}, { value: "12px", displayValue: "12px"}, { value: "13px", displayValue: "13px"}, { value: "14px", displayValue: "14px"}, { value: "15px", displayValue: "15px"}, { value: "16px", displayValue: "16px"}, { value: "17px", displayValue: "17px"},{ value: "18px", displayValue: "18px"}, { value: "19px", displayValue: "19px"}, { value: "20px", displayValue: "20px"}],
 	      					changeProperty: {
@@ -1049,11 +1057,11 @@ prx.types.rectangle = {
 	      					}
 		      			}
 		      		]
-		      		
+
 	      	]
 	   }
 	]
-	
+
 };
 
 /* TYPE = CIRCLE */
@@ -1081,6 +1089,7 @@ prx.types.horizontalline = {
 	      			{
             			caption: 'Border'
             			,name: 'weight'
+            			,proptype: 'border-width'
             			,type: 'combo-select'
             			,value: function(item,name) {
             				return item.weight;
@@ -1091,24 +1100,26 @@ prx.types.horizontalline = {
 							selector: '.inner',
 							property: 'border-width',
 							transitionable: true
-						 } 
-	      			},{ 
+						 }
+	      			},{
 	      				caption: false,
-	      				name: 'borderStyle', 
-	      				type: 'select', 
-	      				value: function(item,name) { 
+	      				name: 'borderStyle',
+	      				proptype: 'border-style',
+	      				type: 'select',
+	      				value: function(item,name) {
 	      					if(typeof(item.borderStyle) == "undefined") { item.borderStyle = "solid"; }
-	      					return item.borderStyle; 
+	      					return item.borderStyle;
 	      				},
 	      				values: [{ value: "solid", displayValue: "Solid"},{ value: "dotted", displayValue: "Dotted"},{ value: "dashed", displayValue: "Dashed"},{ value: "double", displayValue: "Double"},{ value: "none", displayValue: "None"}]
 	      				,changeProperty: {
 							caption: 'Style',
 							rerender: true
-						 }  
+						 }
 		      		},
 	      			{
 	      				caption: false
 	      				,name: 'color'
+	      				,proptype: 'border-color'
 	      				,type: 'colorpicker'
 	      				,value: function(item,name) {
 	      					return item.color;
@@ -1119,14 +1130,14 @@ prx.types.horizontalline = {
 							selector: '.inner',
 							property: 'border-color',
 							transitionable: true
-						} 
+						}
 	      			}
-	      			
+
 	      		]
 	      		]
 	      	}
 	      ]
-	
+
 };
 
 //TYPE: VERTICAL LINE
@@ -1148,6 +1159,7 @@ prx.types.verticalline = {
 	      			{
             			caption: 'Border'
             			,name: 'weight'
+            			,proptype: 'border-width'
             			,type: 'combo-select'
             			,value: function(item,name) {
             				return item.weight;
@@ -1158,25 +1170,27 @@ prx.types.verticalline = {
 							selector: '.inner',
 							property: 'border-width',
 							transitionable: true
-						} 
+						}
 	      			}
-	      			,{ 
+	      			,{
 	      				caption: false,
-	      				name: 'borderStyle', 
-	      				type: 'select', 
-	      				value: function(item,name) { 
+	      				name: 'borderStyle',
+	      				proptype: 'border-style',
+	      				type: 'select',
+	      				value: function(item,name) {
 	      					if(typeof(item.borderStyle) == "undefined") { item.borderStyle = "solid"; }
-	      					return item.borderStyle; 
+	      					return item.borderStyle;
 	      				},
 	      				values: [{ value: "solid", displayValue: "Solid"},{ value: "dotted", displayValue: "Dotted"},{ value: "dashed", displayValue: "Dashed"},{ value: "double", displayValue: "Double"},{ value: "none", displayValue: "None"}]
 	      				,changeProperty: {
 							caption: 'Style',
 							rerender: true
-						}  
+						}
 		      		},
 	      			{
 	      				caption: false
 	      				,name: 'color'
+	      				,proptype: 'border-color'
 	      				,type: 'colorpicker'
 	      				,value: function(item,name) {
 	      					return item.color;
@@ -1187,14 +1201,14 @@ prx.types.verticalline = {
 							selector: '.inner',
 							property: 'border-color',
 							transitionable: true
-						 } 
+						 }
 	      			}
-	      			
+
 	      		]
 	      		]
 	      	}
 	      ]
-	
+
 };
 
 //TYPE: ACTION AREA
@@ -1202,14 +1216,14 @@ prx.types.actionarea = {
 	name: "actionarea"
 	,onDisplay: function(item,containerid) {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
-		
+
 		var cReturn = '<div id="' + _id + '" class="box pos type-actionarea"><div id="rec-' + _id + '" class="inner-rec" ><div></div></div></div>';
 		return cReturn;
 	}
 	,interactions: [
 	              prx.commonproperties.actions
 	      		]
-	
+
 };
 
 //TYPE: IMAGE
@@ -1219,28 +1233,28 @@ prx.types.image = {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
 		if(typeof(item.overlay) == "undefined") { item.overlay = false; }
 		if(typeof(item.repeat) == "undefined") { item.repeat = false; }
-		
+
 		var cR = '<div id="' + _id + '" class="box pos type-image '+(item.propagateEvents ? 'pointer-events-none' : '')+'" '+((item.overlay)? 'data-mpoverlay="1"': '')+'>'
 		cR += '<div class="type-image-wrapper '+((item.repeat) ? 'type-image-repeater': '') + ' '+((item.imgSrc.url.slice(-4) == '.svg') ? 'type-image-svg' : '')+'" style="background-image: url(' +prx.componentsHelper.getAssetUrl(item.imgSrc)+');">'
 		cR += '<img src="' + ((item.imgSrc.url=="") ? "data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" : prx.componentsHelper.getAssetUrl(item.imgSrc)) + '" width="100%" height="100%" />'
 		cR +='</div>'
 		if(prx.editor && item.imgSrc.fileId == "01eb56561388a5a9015bcab43ddeeab5.svg" && item.imgSrc.folderId == "f1353077251107" && item.imgSrc.assetType == "gallery") {
 			cR += '<div class="type-image-hover-message">Double-click to edit image</div>';
-			cR += '<style>#'+_id+' { background-color: #f9f9f9; border: 1px solid #eee; box-sizing: border-box; }</style>'
+			cR += '<style>#'+_id+' { background-color: #f9f9f9; border: '+1*prx.componentsHelper.getScale(item.lib)+'px solid #eee; box-sizing: border-box; }</style>'
 		}
 		cR += '</div>';
-		
+
 		return cR;
 	}
-	,interactions: [{ 
-	      				caption: 'Interactions', 
-	      				name: 'actions', 
-	      				type: 'action', 
-	      				value: function(item,name) { 
-	      					if (typeof(item.actions) == "undefined") { 
+	,interactions: [{
+	      				caption: 'Interactions',
+	      				name: 'actions',
+	      				type: 'action',
+	      				value: function(item,name) {
+	      					if (typeof(item.actions) == "undefined") {
 	      						item.actions = [];
 	      					}
-	      					return item.actions.length; 
+	      					return item.actions.length;
 	      				},
 	      				hiddenByDefault: function(item){
 	      					if(typeof(item.propagateEvents) != "undefined" && item.propagateEvents) {
@@ -1290,7 +1304,7 @@ prx.types.image = {
 	      				,changeProperty: {
 							caption: 'Repeat image',
 							rerender: true
-						 } 
+						 }
 	      			}]
 	      		]
 	      	}, {
@@ -1320,7 +1334,7 @@ prx.types.image = {
 	      				,changeProperty: {
 							caption: 'Propagate events',
 							rerender: true
-						 } 
+						 }
 	      			}],
 	      			[
 	      		  	{
@@ -1336,12 +1350,12 @@ prx.types.image = {
 	    				,changeProperty: {
 							caption: 'Position fixed',
 							rerender: true
-						 } 
+						 }
 	      	      	}
 	      	      ]
 	      	      ]
 	      	      }
-	      			
+
 	      		]
 };
 
@@ -1350,18 +1364,18 @@ prx.types.placeholder = {
 	name: 'placeholder'
 	,onDisplay: function(item,containerid,pageid,symbol) {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
-		
+
 		var _real = prx.componentsHelper.getRealDims(item, symbol);
 		var _realh = _real.height;
 		var _realw = _real.width;
-		
+
 		var _width = Math.sqrt(Math.pow(_realw,2) + Math.pow(_realh,2)) - item.thickness;
 		var _angle1 = 90 - Math.atan((_realw-item.thickness*2)/(_realh-item.thickness*2)) * (180/Math.PI);
-		
+
 		if(typeof(item.textColor) == "undefined") {
 			item.textColor = item.borderColor;
-		} 
-		
+		}
+
 		//needs the width patenta to correctly calculate width on afterdisplay
 		var cR = '<div id="' + _id + '" class="pos box type-placeholder" style="width: '+_realw+'px;">';
 		cR += '<div class="bg liveUpdate-backgroundColor liveUpdate-borderColor changeProperty-backgroundColor changeProperty-borderColor" style="background-color: '+prx.utils.getColor(item.backgroundColor)+'; border-color: '+prx.utils.getColor(item.borderColor)+'; border-width: '+item.thickness+'px;"></div>';
@@ -1379,10 +1393,10 @@ prx.types.placeholder = {
 		var _real = prx.componentsHelper.getRealDims(item);
 		var _realh = _real.height;
 		var _realw = _real.width;
-		
+
 		var _width = Math.sqrt(Math.pow(_realw,2) + Math.pow(_realh,2)) - item.thickness;
-		var _angle1 = 90 - Math.atan((_realw-10)/(_realh-10)) * (180/Math.PI);
-		
+		var _angle1 = 90 - Math.atan((_realw-item.thickness*2)/(_realh-item.thickness*2)) * (180/Math.PI);
+
 		$('#' + _id + ' .diagonal1')
 			.width(_width)
 			.css('-moz-transform', 'rotate(' + _angle1 + 'deg)')
@@ -1413,19 +1427,20 @@ prx.types.placeholder = {
 				property: 'text',
 				selector: 'liveUpdate-textColor',
 				transitionable: false
-			 } 
+			 }
 	    }
 	]
 	,propertyGroups: [
 	    {
 	    	caption: 'Style',
 	    	properties: [
-		    	[ 
+		    	[
 		    		prx.commonproperties.backgroundColor
 		    	,
 				    {
 				    	caption: 'Border'
 				    	,name: 'thickness'
+				    	,proptype: 'border-width'
 				    	,type: 'combo-select'
 				    	,value: function(item,name) {
 				    		return item.thickness
@@ -1434,47 +1449,49 @@ prx.types.placeholder = {
 				    	,changeProperty: {
 							caption: 'Border Width',
 							rerender: true
-						 } 
+						 }
 				    }
 		    		,prx.commonproperties.borderColor
 		    	],
 		    	[
-		    		{ 
-		    			caption: 'Text', 
-		    			name: 'textSize', 
-		    			type: 'combo-select', 
-		    			value: function(item,name) { return item.textSize; }, 
+		    		{
+		    			caption: 'Text',
+		    			name: 'textSize',
+		    			proptype: 'font-size',
+		    			type: 'combo-select',
+		    			value: function(item,name) { return item.textSize; },
 		    			values: prx.comps.textsize
 		    			,changeProperty: {
 							caption: 'Text Size',
 							selector: 'liveUpdate-textColor',
 							property: 'font-size',
 							transitionable: true
-						 }  
+						 }
 		    		}
 
-		    		,{ 
-		    			caption: false, 
-		    			name: 'textColor', 
-		    			type: 'colorpicker', 
-		    			value: function(item,name) { 
+		    		,{
+		    			caption: false,
+		    			name: 'textColor',
+		    			proptype: 'font-color',
+		    			type: 'colorpicker',
+		    			value: function(item,name) {
 		    				if(typeof(item.textColor) == "undefined") {
 		    					return item.borderColor;
 		    				}
-		    				return item.textColor; 
-		    			}, 
-		    			liveUpdate: 'color' 
+		    				return item.textColor;
+		    			},
+		    			liveUpdate: 'color'
 		    			,changeProperty: {
 							caption: 'Text Color',
 							selector: 'liveUpdate-textColor',
 							property: 'color',
 							transitionable: true
-						 } 
+						 }
 		    		}
 		    	]
 	    	]
 	    }
-	    
+
 	]
 }
 
@@ -1483,13 +1500,13 @@ prx.types.webview = {
 	name: 'webview'
 	,onDisplay: function(item,containerid) {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
-		
+
 		if(typeof(item.scrollable) == "undefined") {
 			item.scrollable = false;
-		} 
-		
+		}
+
 		var cR = '';
-		
+
 		cR += '<div id="' + _id + '" class="box pos type-webview">';
 		cR += '<div style="overflow: hidden; height: 100%; width: 100%;">';
 		if(!prx.editor && prx.iosmobilebrowser) {
@@ -1497,11 +1514,11 @@ prx.types.webview = {
 		}
 		cR += '<iframe src='+item.url+' scrolling='+((item.scrollable) ? '"yes"' : '"no"') +' style="border: none; width: 100%; height: 100%;"></iframe>';
 		if(!prx.editor && prx.iosmobilebrowser) {
-		cR += '</div>';	
+		cR += '</div>';
 		}
 		cR += '</div>';
 		cR += '</div>';
-		
+
 		return cR;
 	}
 	,propertyGroups: [
@@ -1520,8 +1537,8 @@ prx.types.webview = {
 						    ,changeProperty: {
 								caption: 'URL',
 								rerender: true
-							 } 
-					    }					    
+							 }
+					    }
 			      ],
 			      [
 		              {
@@ -1577,11 +1594,11 @@ prx.types.html = {
 						caption: 'HTML code',
 						rerender: true,
 						changeable: true
-					 } 
+					 }
 			    }
 			 ]]
 		}
-	]           
+	]
 };
 
 //TYPE: AUDIO
@@ -1622,7 +1639,7 @@ prx.types.audio = {
 					}
 					,changeProperty: {
 						rerender: true
-					 } 
+					 }
 				}],
 				[{
 					caption: 'Audio file OGG (.oga)'
@@ -1642,7 +1659,7 @@ prx.types.audio = {
 					}
 					,changeProperty: {
 						rerender: true
-					 } 
+					 }
 				}],
 				[{
 			    	caption: 'Audio file WAV'
@@ -1662,7 +1679,7 @@ prx.types.audio = {
 					}
 					,changeProperty: {
 						rerender: true
-					 } 
+					 }
 			    }],
 			    [{
 			    	caption: 'Audio file AAC'
@@ -1682,7 +1699,7 @@ prx.types.audio = {
 					}
 					,changeProperty: {
 						rerender: true
-					 } 
+					 }
 			    }],
 			    [
 			    {
@@ -1694,7 +1711,7 @@ prx.types.audio = {
 			    	}
 			    	,changeProperty: {
 						rerender: true
-					 } 
+					 }
 			    }
 			    ,
 			    {
@@ -1706,7 +1723,7 @@ prx.types.audio = {
 			    	}
 			    	,changeProperty: {
 						rerender: true
-					 } 
+					 }
 			    },
 			    {
 			    	caption: 'Display controls'
@@ -1717,7 +1734,7 @@ prx.types.audio = {
 			    	}
 			    	,changeProperty: {
 						rerender: true
-					} 
+					}
 			    }]
 			    ]
 		}
@@ -1743,20 +1760,20 @@ prx.types.video = {
 		case 'youtube':
 			if(prx.editor && $.browser.chrome) {
 				cR += '<object width="100%" height="100%"><param name="movie" value="//www.youtube.com/v/'+item.youtubeid+'?version=3&amp;hl=en_GB"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="//www.youtube.com/v/'+item.youtubeid+'?version=3&amp;hl=en_GB" type="application/x-shockwave-flash" width="100%" height="100%" allowscriptaccess="always" allowfullscreen="true"></embed></object>'
-			} else { 
+			} else {
 				cR += '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+item.youtubeid+'?wmode=transparent&playsinline=1'+((item.autoplay && !prx.editor) ? '&autoplay=1' : '')+((!item.controls) ? '&controls=0' : '')+'" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 			}
 			break;
 		case 'vimeo':
 			if(prx.editor && $.browser.chrome) {
 				cR += '<object width="100%" height="100%"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="https://vimeo.com/moogaloop.swf?clip_id='+item.vimeoid+'&amp;force_embed=1&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="https://vimeo.com/moogaloop.swf?clip_id='+item.vimeoid+'&amp;force_embed=1&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="100%" height="100%"></embed></object>'
-			} else { 
+			} else {
 				cR += '<iframe width="100%" height="100%" src="https://player.vimeo.com/video/'+item.vimeoid+'?title=0&amp;byline=0&amp;portrait=0&wmode=transparent'+((item.autoplay && !prx.editor) ? '&autoplay=1' : '')+'" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 			}
 			break;
 		}
 		cR += '</div>';
-		return cR;		
+		return cR;
 	}
 	/*,afterDisplay: function(item,containerid) {
 		if(prx.editor && $.browser.mozilla) {
@@ -1802,7 +1819,7 @@ prx.types.video = {
 		      		,changeProperty: {
 						rerender: true,
 						changeable: false
-					} 
+					}
 		      }],
 		      [{
 			    	caption: 'YouTube Video ID'
@@ -1990,28 +2007,28 @@ prx.types.tooltip = {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
 		var _height, _width, _pos, _margin;
 		var _dims = prx.componentsHelper.getRealDims(item,symbol);
-		
+
 		var _ttBg = item.backgroundColor;
 		if(_ttBg == 'none') { _ttBg = item.borderColor; }
-		
+
 		var _props = (jQuery.inArray("bold",item.textProperties)>-1) ? " font-weight: bold;" : "";
 		_props += (jQuery.inArray("italic",item.textProperties)>-1) ? " font-style: italic;" : "";
 		_props += (jQuery.inArray("underline",item.textProperties)>-1) ? " text-decoration: underline;" : "";
-		
+
 		switch (item.ttDirection) {
 		case 'top':
 		case 'bottom':
 			_width = '100%';
-			_height = parseInt(_dims.height) - 12 + 'px';
-			_margin = '9px 0 9px -7px'
-			_pos = 'width: 25px; height: '+(12 + parseInt(item.borderWidth))+'px; left: ' + eval((_dims.width * item.ttPosition/100) - (25 * item.ttPosition/100)) + 'px;';
+			_height = parseInt(_dims.height) - (12*prx.componentsHelper.getScale(item.lib)) + 'px';
+			_margin = (9*prx.componentsHelper.getScale(item.lib))+'px 0 '+(9*prx.componentsHelper.getScale(item.lib))+'px -'+(7*prx.componentsHelper.getScale(item.lib))+'px'
+			_pos = 'width: '+(25*prx.componentsHelper.getScale(item.lib))+'px; height: '+((12*prx.componentsHelper.getScale(item.lib)) + parseInt(item.borderWidth))+'px; left: '+eval((_dims.width * item.ttPosition/100) - ((25*prx.componentsHelper.getScale(item.lib)) * item.ttPosition/100))+'px;';
 			break;
 		case 'left':
 		case 'right':
 			_height = '100%';
-			_width = parseInt(_dims.width) - 12 + 'px';
-			_margin = '-7px 9px 0';
-			_pos = 'width: '+(12 + parseInt(item.borderWidth))+'px; height: 25px; top: ' + eval((_dims.height * item.ttPosition/100) - (25 * item.ttPosition/100)) + 'px;';
+			_width = parseInt(_dims.width) - (12*prx.componentsHelper.getScale(item.lib)) + 'px';
+			_margin = '-'+(7*prx.componentsHelper.getScale(item.lib))+'px '+(9*prx.componentsHelper.getScale(item.lib))+'px 0';
+			_pos = 'width: '+((12*prx.componentsHelper.getScale(item.lib)) + parseInt(item.borderWidth))+'px; height: '+(25*prx.componentsHelper.getScale(item.lib))+'px; top: '+eval((_dims.width * item.ttPosition/100) - ((25*prx.componentsHelper.getScale(item.lib)) * item.ttPosition/100))+'px;';
 			break;
 		case 'none':
 			_height = '100%';
@@ -2020,18 +2037,18 @@ prx.types.tooltip = {
 			_pos = 'width: 0px; height: 0px';
 			break;
 		}
-		
-		
+
+
 		var cR = '<div id="'+_id+'" class="box pos type-tooltip">'
-		
+
 		cR += '<style>'
-		cR += '#'+_id+' .tooltip-content-outer { padding-'+item.ttDirection+': 12px; }'
+		cR += '#'+_id+' .tooltip-content-outer { padding-'+item.ttDirection+': '+(12*prx.componentsHelper.getScale(item.lib))+'px; }'
 		cR += '#'+_id+' .tooltip-content { border-radius: '+item.borderRadius+'px; border: '+item.borderWidth+'px solid '+prx.utils.getColor(item.borderColor)+'; background-color: '+prx.utils.getColor(item.backgroundColor)+'; }'
 		cR += '#'+_id+' .tooltip-text { '+_props+' '+prx.componentsHelper.getFontCssFromFontFamily(item.textFont)+'; font-size: '+item.textSize+'px; text-align: '+item.textAlign+'; color: '+prx.utils.getColor(item.textColor)+'; }'
 		cR += '#'+_id+' .tooltip-outer { '+item.ttDirection+': 0; '+_pos+' }'
 		cR += '#'+_id+' .tooltip { background: '+prx.utils.getColor(_ttBg)+'; '+item.ttDirection+': 0; border: '+item.borderWidth+'px solid '+prx.utils.getColor(item.borderColor)+'; margin: '+_margin+'; }'
 		cR += '</style>'
-		
+
 		cR += '<div class="tooltip-content-outer">';
 		cR += '<div class="tooltip-content liveUpdate-borderColor liveUpdate-backgroundColor changeProperty-backgroundColor changeProperty-borderColor changeProperty-borderRadius">';
 		cR += '<div class="tooltip-text liveUpdate-textColor changeProperty-textColor changeProperty-textFont"> <span data-editableproperty="text">'+item.text+'</span></div>'
@@ -2041,27 +2058,27 @@ prx.types.tooltip = {
 		cR += '<div class="tooltip liveUpdate-borderColor liveUpdate-backgroundColor changeProperty-backgroundColor changeProperty-borderColor"></div>'
 		cR += '</div>'
 		cR += '</div>';
-		
+
 		return cR;
 	}
 	,onResize: function(item,containerid) {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
-		
+
 		var _height, _height2, _width;
 		var _dims = prx.componentsHelper.getRealDims(item);
-		
+
 		switch (item.ttDirection) {
 		case 'top':
 		case 'bottom':
 			_width = '100%';
-			_height = eval(_dims.height - 12) + 'px';
-			$("#" + _id + " .tooltip-outer").first().css("left", eval((_dims.width * item.ttPosition/100) - (25 * item.ttPosition/100)) + 'px')
+			_height = eval(_dims.height - (12*prx.componentsHelper.getScale(item.lib))) + 'px';
+			$("#" + _id + " .tooltip-outer").first().css("left", eval((_dims.width * item.ttPosition/100) - ((25*prx.componentsHelper.getScale(item.lib)) * item.ttPosition/100)) + 'px')
 			break;
 		case 'left':
-		case 'right':
+		case 'right':than
 			_height = '100%';
-			_width = eval(_dims.width - 12) + 'px';
-			$("#" + _id + " .tooltip-outer").first().css("top", eval((_dims.height * item.ttPosition/100) - (25 * item.ttPosition/100)) + 'px')
+			_width = eval(_dims.width - (12*prx.componentsHelper.getScale(item.lib))) + 'px';
+			$("#" + _id + " .tooltip-outer").first().css("top", eval((_dims.height * item.ttPosition/100) - ((25*prx.componentsHelper.getScale(item.lib)) * item.ttPosition/100)) + 'px')
 			break;
 		case 'none':
 			_height = '100%';
@@ -2073,10 +2090,10 @@ prx.types.tooltip = {
 		prx.commonproperties.actions
 	]
 	,editableProperties: [
-		{ 
-			caption: 'Text', 
-			name: 'text', 
-			type: 'textarea', 
+		{
+			caption: 'Text',
+			name: 'text',
+			type: 'textarea',
 			value: function(item,name) { return item.text; },
 			changeProperty: {
 				property: 'text',
@@ -2121,16 +2138,17 @@ prx.types.tooltip = {
 					prx.commonproperties.backgroundColor
 				]
 				,[
-					{ 
-						caption: 'Border', 
-						name: 'borderWidth', 
+					{
+						caption: 'Border',
+						name: 'borderWidth',
+						proptype: 'border-width',
 						type: 'combo-select',
-						value: function(item,name) { return item.borderWidth; }, 
+						value: function(item,name) { return item.borderWidth; },
 						values: { min: 0, max: 10, step: 1 }
 						,changeProperty: {
 							caption: 'BorderWidth',
 							rerender: true
-						} 
+						}
 					}
 			     	,prx.commonproperties.borderColor
 			       	,prx.commonproperties.borderRadius
@@ -2151,7 +2169,7 @@ prx.types.tooltip = {
 			]
 		}
     ]
-	
+
 };
 
 
@@ -2166,17 +2184,17 @@ prx.types.basic_tabbar = {
 		var _dims = prx.componentsHelper.getRealDims(item,symbol);
 		if(typeof(item.overlay) == "undefined") { item.overlay = false; }
 		if(typeof(item.changeActive) == "undefined") { item.changeActive = true; }
-		
+
 		var _props = (jQuery.inArray("bold",item.textProperties)>-1) ? " font-weight: bold;" : "";
 		_props += (jQuery.inArray("italic",item.textProperties)>-1) ? " font-style: italic;" : "";
 		_props += (jQuery.inArray("underline",item.textProperties)>-1) ? " text-decoration: underline;" : "";
-		
+
 		var activebg = item.activeBackgroundColor
 		if(activebg == 'as-inactive') { activebg = "rgba(0,0,0,0)"; } // patenta gia ios7
-		
+
 		var cR = '<div id="'+_id+'" class="pos box type-basic-tabbar type-basic-tabbar-icon-'+item.iconpos+'" '+((item.overlay)? 'data-mpoverlay="1"': '')+'>';
-		var _tabWidth = Math.floor((_dims.width - item.borderWidth*(item.tabs.length-1))/item.tabs.length); 
-		
+		var _tabWidth = Math.floor((_dims.width - item.borderWidth*(item.tabs.length-1))/item.tabs.length);
+
 		cR += '<style>';
 		cR += '#'+_id+' ul { background-color: '+prx.utils.getColor(item.backgroundColor)+'; }'
 		cR += '#'+_id+' li { width: '+_tabWidth+'px; border-left: '+item.borderWidth+'px solid '+prx.utils.getColor(item.borderColor)+'; }'
@@ -2188,16 +2206,16 @@ prx.types.basic_tabbar = {
 			cR += '#'+_id+' input:checked + label .icon { background-color: '+prx.utils.getColor(item.maskActive)+' }'
 		}
 		switch (item.iconpos) {
-			case 'top': 
+			case 'top':
 				cR += '#'+_id+' .caption { line-height: '+parseInt(_dims.height*0.25)+'px; }';
 				break;
-			case '': 
+			case '':
 				cR += '#'+_id+' .caption { line-height: '+_dims.height+'px; }';
 				break;
 			default: break;
 		}
 		cR += '</style>';
-		
+
 		cR += '<ul class="liveUpdate-backgroundColor changeProperty-backgroundColor">';
 		$.each(item.tabs, function(i,elm){
 			if(typeof(elm.linkedscreen) == "undefined") { elm.linkedscreen = -1; }
@@ -2228,17 +2246,17 @@ prx.types.basic_tabbar = {
 	,onResize: function(item,containerid) {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
 		var _dims = prx.componentsHelper.getRealDims(item);
-		var _tabWidth = Math.floor((_dims.width - item.borderWidth*(item.tabs.length-1))/item.tabs.length); 
+		var _tabWidth = Math.floor((_dims.width - item.borderWidth*(item.tabs.length-(1*prx.componentsHelper.getScale(item.lib))))/item.tabs.length);
 		switch (item.iconpos) {
-			case 'top': 
+			case 'top':
 				$('#'+_id+' .caption').css('line-height', parseInt(_dims.height*0.25)+'px')
 				break;
-			case '': 
+			case '':
 				$('#'+_id+' .caption').css('line-height', _dims.height+'px')
 				break;
 			default: break;
 		}
-		
+
 		$('#'+_id+' li').width(_tabWidth);
 	}
 	,afterDisplay: function(item,containerid) {
@@ -2246,7 +2264,7 @@ prx.types.basic_tabbar = {
 		if(!prx.editor) {
 			$('#' + _id + ' [data-linked-screen]').each(function(){
 				var screenId = $(this).attr('data-linked-screen');
-				
+
 				if(prx.stc.screens.getIndexFromId(screenId) != -1) {
 					var guid = prx.utils.getGuid();
 					var action = {
@@ -2259,12 +2277,12 @@ prx.types.basic_tabbar = {
 						callback: false,
 						guid: guid,
 						bindTo: '#' + $(this).attr('id')
-						
+
 					};
-					
+
 					action = prx.actions.recursivelyAddInfo(action, action.bindTo, containerid, containerid+ '', '.protoio-actions-afterdisplay')
 					prx.actions.build(action);
-					
+
 				}
 			});
 		}
@@ -2277,6 +2295,7 @@ prx.types.basic_tabbar = {
               				,{
 			      				caption: 'Active'
 			      				,name: 'activeBackgroundColor'
+			      				,proptype: 'background-color-2-active'
 			      				,type: 'colorpicker'
 			      				,value: function(item, name){
 			      					return item.activeBackgroundColor;
@@ -2290,29 +2309,31 @@ prx.types.basic_tabbar = {
 		      					 }
 			      			}],
 			      			[
-              					{ 
-              						caption: 'Border', 
-              						name: 'borderWidth', 
-              						type: 'combo-select', 
-              						value: function(item,name) { return item.borderWidth; }, 
-              						values: { min: 0, max: 20, step: 1 }, 
-              						changeProperty: { 
+              					{
+              						caption: 'Border',
+              						name: 'borderWidth',
+              						proptype: 'border-width',
+              						type: 'combo-select',
+              						value: function(item,name) { return item.borderWidth; },
+              						values: { min: 0, max: 20, step: 1 },
+              						changeProperty: {
               							caption: 'Border width',
-              							rerender: true 
-									} 
+              							rerender: true
+									}
               					}
               					,prx.commonproperties.borderColor
               				]
               			]
               		},
-              		{	
+              		{
               			caption: 'Text',
               			properties: [[
-			              { 
-			            	  caption: false, 
-			            	  name: 'textFont', 
-			            	  type: 'select', 
-			            	  value: function(item,name) { return item.textFont; }, 
+			              {
+			            	  caption: false,
+			            	  name: 'textFont',
+			            	  proptype: 'font-family',
+			            	  type: 'select',
+			            	  value: function(item,name) { return item.textFont; },
 			            	  values:function() { return prx.comps.fonts; },
 			            	  hiddenByDefault: function(item) { return (item.iconpos == "notext"); }
 			            	  ,changeProperty: {
@@ -2322,11 +2343,12 @@ prx.types.basic_tabbar = {
 	      						transitionable: false
 	      					  }
 			              }
-			              ,{ 
-			            	  caption: false, 
-			            	  name: 'textSize', 
-			            	  type: 'combo-select', 
-			            	  value: function(item,name) { return item.textSize; }, 
+			              ,{
+			            	  caption: false,
+			            	  name: 'textSize',
+			            	  proptype: 'font-size',
+			            	  type: 'combo-select',
+			            	  value: function(item,name) { return item.textSize; },
 			            	  values: prx.comps.textsize,
 			            	  hiddenByDefault: function(item) { return (item.iconpos == "notext"); }
 			            	  ,changeProperty: {
@@ -2336,10 +2358,11 @@ prx.types.basic_tabbar = {
 	      						transitionable: true
 	      					  }
 			              }
-			              ,{ 
-			            	  caption: false, 
-			            	  name: 'textColor', 
-			            	  type: 'colorpicker', 
+			              ,{
+			            	  caption: false,
+			            	  name: 'textColor',
+			            	  proptype: 'font-color',
+			            	  type: 'colorpicker',
 			            	  value: function(item,name) { return item.textColor; } ,
 			                  hiddenByDefault: function(item) { return (item.iconpos == "notext"); }
 			            	  ,liveUpdate: 'color'
@@ -2350,11 +2373,12 @@ prx.types.basic_tabbar = {
 	      						transitionable: true
 	      					  }
 			              }]
-			              ,[{ 
-			            	  caption: false, 
-			            	  name: 'textProperties', 
-			            	  type: 'checkbox', 
-			            	  value: function(item,name) { if(typeof(item.textProperties) == "undefined") {item.textProperties = [];} return item.textProperties; }, 
+			              ,[{
+			            	  caption: false,
+			            	  name: 'textProperties',
+			            	  proptype: 'text-properties',
+			            	  type: 'checkbox',
+			            	  value: function(item,name) { if(typeof(item.textProperties) == "undefined") {item.textProperties = [];} return item.textProperties; },
 			            	  values: [{ value: 'bold', displayValue: '<b style="font-family: Georgia">B</b>'}, { value: 'italic', displayValue: '<i style="font-family: Georgia">I</i>'}, { value: 'underline', displayValue: '<u style="font-family: Georgia">U</u>'}],
 			     	          hiddenByDefault: function(item) { return (item.iconpos == "notext"); }
 			     	          ,changeProperty: {
@@ -2365,6 +2389,7 @@ prx.types.basic_tabbar = {
 			      			,{
 			      				caption: 'Active'
 			      				,name: 'activeTextColor'
+			      				,proptype: 'font-color-2-active'
 			      				,type: 'colorpicker'
 			      				,value: function(item, name){
 			      					return item.activeTextColor;
@@ -2413,6 +2438,7 @@ prx.types.basic_tabbar = {
 				      		{
 				      			caption: false
 				      			,name: 'iconSize'
+				      			,proptype: 'icon-size'
 				      			,type: 'select'
 				      			,value: function(item,name) {
 				      				return item.iconSize;
@@ -2485,7 +2511,7 @@ prx.types.basic_tabbar = {
 	      				{
 	      					caption: 'Advanced',
 	      					properties: [[
-	      					
+
 	  			{
 	  	  			caption: 'Active tab'
 	  	  			,name: 'activeTab'
@@ -2494,14 +2520,14 @@ prx.types.basic_tabbar = {
 	  	      			return item.activeTab;
 	  	      		}
 	  	      		,values: function(item,name) {
-	  	      			//var _rA = []; 
+	  	      			//var _rA = [];
 	  	      			var _rA = [{value: '999',displayValue: 'None'}];
 	  	      			for (var n = 0; n < item.tabs.length; n++) {
 	  	      				_rA.push({value: n,displayValue: item.tabs[n].text});
-	  	      			}	
+	  	      			}
 	  	      			return _rA;
-	  	      		} 
-	  	      		
+	  	      		}
+
 	      			,changeProperty: {
   						caption: 'Active tab',
   						rerender: true
@@ -2532,7 +2558,7 @@ prx.types.basic_tabbar = {
 	  						}
 	  						return item.overlay;
 	  					}
-	  					
+
 		      			,changeProperty: {
 	  						caption: 'Position fixed',
 	  						rerender: true
@@ -2549,7 +2575,7 @@ prx.types.basic_tabbar = {
        		,deleteCaption: 'Delete'
        		,blankItem: {
        			text: 'Label',
-       			icon: {"fileId":"94a90bf9a645dba63ad7a41d18f82ea7.svg","name":"star.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/94a90bf9a645dba63ad7a41d18f82ea7.svg","folderId":"f1352971179296","targetSrc":"generated/94a90bf9a645dba63ad7a41d18f82ea7_333333.svg","color":"333333"},
+       			icon: {"fileId":"94a90bf9a645dba63ad7a41d18f82ea7.svg","name":"star.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/94a90bf9a645dba63ad7a41d18f82ea7.svg","folderId":"f1352971179296","targetSrc":"generated/94a90bf9a645dba63ad7a41d18f82ea7_333333.svg","color":"383838"},
 				activeicon: {"fileId":"94a90bf9a645dba63ad7a41d18f82ea7.svg","name":"star.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/94a90bf9a645dba63ad7a41d18f82ea7.svg","folderId":"f1352971179296","targetSrc":"generated/94a90bf9a645dba63ad7a41d18f82ea7_ffffff.svg","color":"ffffff"},
        			actions: []
        		}
@@ -2562,11 +2588,11 @@ prx.types.basic_tabbar = {
       				,value: function(item,name,index) {
       					if (typeof(item.tabs[index].actions) == "undefined") {
       						item.tabs[index].actions = [];
-      					}		
-      				
+      					}
+
       					return item.tabs[index].actions.length;
       				}
-      			}    
+      			}
        		]
        		,editableProperties: [
        			{
@@ -2687,22 +2713,22 @@ prx.types.generic_onoffswitch = {
 	name: 'generic_onoffswitch'
 	,onDisplay: function(item,containerid) {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
-		
+
 		var _active = ''
 		if(item.active) {
 			_active = 'checked="checked"';
 		}
-		
+
 		var cR = '<div id="' + _id + '" class="box pos type-generic-onoffswitch">'
-		
+
 		cR += '<style>';
 		cR += '#'+_id+' label { border-radius: '+item.borderRadius+'px;}'
-		cR += '#'+_id+' .onoffswitch-inner div { line-height: '+(item.height-4)+'px; }'
+		cR += '#'+_id+' .onoffswitch-inner div { line-height: '+(item.height-(4*prx.componentsHelper.getScale(item.lib)))+'px; }'
 		cR += '#'+_id+' .onoffswitch-inner .active { background-color: '+prx.utils.getColor(item.activeLabelColor)+'; color: '+prx.utils.getColor(item.activeLabelTextColor)+'; }'
 		cR += '#'+_id+' .onoffswitch-inner .inactive { background-color: '+prx.utils.getColor(item.inactiveLabelColor)+'; color: '+prx.utils.getColor(item.inactiveLabelTextColor)+'; }'
 		cR += '#'+_id+' .onoffswitch-switch { background-color: '+prx.utils.getColor(item.switchColor)+'; width: '+item.switchSize+'px; border-radius: '+item.borderRadius+'px; margin: '+((item.height - item.switchSize)/2)+'px; right: '+(item.width-(Number(item.switchSize) + 4 + (item.height - Number(item.switchSize))))+'px; }'
 		cR += '</style>'
-		
+
 		cR += '<input type="checkbox" '+_active+ ' id="'+_id+'-onoffswitch" data-role="none" >'
 		cR += '<label for="'+_id+'-onoffswitch">'
 		cR += '<div class="onoffswitch-inner">'
@@ -2712,29 +2738,32 @@ prx.types.generic_onoffswitch = {
 		cR += '<div class="onoffswitch-switch"></div>'
 		cR += '</label>'
 		cR += '</div>'
-		
+
 		return cR;
 	}
 	,properties: [
-	        { 
-	        	caption: 'Border Radius (px)', 
-	        	name: 'borderRadius', 
-	        	type: 'slider-select', value: function(item,name) { return item.borderRadius; }, 
-	        	values: { min: 0, max: 50, step: 1 } 
+	        {
+	        	caption: 'Border Radius (px)',
+	        	name: 'borderRadius',
+	        	proptype: 'border-radius',
+	        	type: 'slider-select', value: function(item,name) { return item.borderRadius; },
+	        	values: { min: 0, max: 50, step: 1 }
 	        },
       		{
       			caption: 'Switch color'
       			,name: 'switchColor'
+      			,proptype: 'background-color-3-switch'
       			,type: 'colorpicker'
       			,value: function(item,name) {
       				return item.switchColor;
       			}
       		},
-	        { 
-	        	caption: 'Switch size', 
-	        	name: 'switchSize', 
-	        	type: 'slider-select', value: function(item,name) { return item.switchSize; }, 
-	        	values: { min: 5, max: 60, step: 1 } 
+	        {
+	        	caption: 'Switch size',
+	        	name: 'switchSize',
+	        	proptype: 'switch-size',
+	        	type: 'slider-select', value: function(item,name) { return item.switchSize; },
+	        	values: { min: 5, max: 60, step: 1 }
 	        }
       		,
       		{
@@ -2749,6 +2778,7 @@ prx.types.generic_onoffswitch = {
       		{
       			caption: 'Active Label Color'
       			,name: 'activeLabelColor'
+      			,proptype: 'background-color-2-active'
       			,type: 'colorpicker'
       			,value: function(item,name) {
       				return item.activeLabelColor;
@@ -2758,6 +2788,7 @@ prx.types.generic_onoffswitch = {
       		{
       			caption: 'Active Label Text Color'
       			,name: 'activeLabelTextColor'
+      			,proptype: 'font-color-2-active'
       			,type: 'colorpicker'
       			,value: function(item,name) {
       				return item.activeLabelTextColor;
@@ -2776,6 +2807,7 @@ prx.types.generic_onoffswitch = {
       		{
       			caption: 'Inactive Label Color'
       			,name: 'inactiveLabelColor'
+      			,proptype: 'background-color'
       			,type: 'colorpicker'
       			,value: function(item,name) {
       				return item.inactiveLabelColor;
@@ -2785,6 +2817,7 @@ prx.types.generic_onoffswitch = {
       		{
       			caption: 'Inactive Label Text Color'
       			,name: 'inactiveLabelTextColor'
+      			,proptype: 'font-color'
       			,type: 'colorpicker'
       			,value: function(item,name) {
       				return item.inactiveLabelTextColor;
@@ -2799,27 +2832,27 @@ prx.types.generic_onoffswitch = {
       				return item.active;
       			}
       		}
-      		,{ 
-      			caption: 'Interactions on activation', 
-      			name: 'flipswitchActionsOnActive', 
+      		,{
+      			caption: 'Interactions on activation',
+      			name: 'flipswitchActionsOnActive',
       			type: 'action',
       			value: function(item,name) {
 	      			if(typeof(item.flipswitchActionsOnActive) == "undefined") {
-	      				item.flipswitchActionsOnActive = []; 
+	      				item.flipswitchActionsOnActive = [];
 	      			}
-	      			return item.flipswitchActionsOnActive.length; 
-      			} 
+	      			return item.flipswitchActionsOnActive.length;
+      			}
       		}
-      		,{ 
-      			caption: 'Interactions on deactivation', 
-      			name: 'flipswitchActionsOnDeactive', 
-      			type: 'action', 
+      		,{
+      			caption: 'Interactions on deactivation',
+      			name: 'flipswitchActionsOnDeactive',
+      			type: 'action',
       			value: function(item,name) {
       				if(typeof(item.flipswitchActionsOnDeactive) == "undefined") {
-  						item.flipswitchActionsOnDeactive = []; 
+  						item.flipswitchActionsOnDeactive = [];
       				}
-      				return item.flipswitchActionsOnDeactive.length; 
-      			}  
+      				return item.flipswitchActionsOnDeactive.length;
+      			}
       		}
       	]
 }
@@ -2848,14 +2881,14 @@ prx.components.text = {
 	,lib: _library
 	,caption: 'Text'
 	,icon: '0 0'
-	,helper: prx.url.devices+'/common/text/helper.png'		
+	,helper: prx.url.devices+'/common/text/helper.png'
 	,text: 'Type something'
 	,textFont: 'sans-serif,Helvetica Neue,Arial'
-	,textSize: "34"
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textColor:  '000000'
 	,backgroundColor:  'none'
-	,width:"180"
-	,height:"40"
+	,width: 180*prx.componentsHelper.getScale(_library)
+	,height: 40*prx.componentsHelper.getScale(_library)
 	,textProperties: []
 	,textAlign: 'left'
 	,enableShadow: false
@@ -2868,10 +2901,10 @@ prx.components.richtext = {
 	,lib: _library
 	,caption: 'Rich Text'
 	,icon: '-80px 0'
-	,helper: prx.url.devices+'/common/richtext/helper.png'		
+	,helper: prx.url.devices+'/common/richtext/helper.png'
 	,text: 'Sample text'
-	,width:"200"
-	,height:"150"
+	,width: 200*prx.componentsHelper.getScale(_library)
+	,height: 150*prx.componentsHelper.getScale(_library)
 }
 
 prx.components.rectangle = {
@@ -2881,16 +2914,16 @@ prx.components.rectangle = {
 	,caption: 'Rectangle'
 	,icon: '-160px 0'
 	,helper: prx.url.devices+'/common/rectangle/helper.png'
-	,backgroundColor: 'CCCCCC'
+	,backgroundColor: 'C6C6C6'
 	,borderWidth: 0
-	,borderColor: '4c4c4c'
+	,borderColor: '555555'
 	,borderRadius: 0
-	,width:"100"
-	,height:"100"
+	,width: 100*prx.componentsHelper.getScale(_library)
+	,height: 100*prx.componentsHelper.getScale(_library)
 	,actions:[]
 	,textFont: 'sans-serif,Helvetica Neue,Arial'
-	,textSize: "16"
-	,textColor:  '#2E2E2E'
+	,textSize: 16*prx.componentsHelper.getScale(_library)
+	,textColor:  '#383838'
 	,textProperties: []
 	,textAlign: 'center'
 	,text: ''
@@ -2903,16 +2936,16 @@ prx.components.circle = {
 	,caption: 'Circle'
 	,icon: '-240px 0'
 	,helper: prx.url.devices+'/common/circle/helper.png'
-	,backgroundColor: 'CCCCCC'
+	,backgroundColor: 'C6C6C6'
 	,borderWidth: '0'
-	,borderColor: '4c4c4c'
+	,borderColor: '555555'
 	,borderRadius: '50%'
-	,width:"100"
-	,height:"100"
+	,width: 100*prx.componentsHelper.getScale(_library)
+	,height: 100*prx.componentsHelper.getScale(_library)
 	,actions:[]
 	,textFont: 'sans-serif,Helvetica Neue,Arial'
-	,textSize: "16"
-	,textColor:  '#2E2E2E'
+	,textSize: 16*prx.componentsHelper.getScale(_library)
+	,textColor:  '#383838'
 	,textProperties: []
 	,textAlign: 'center'
 	,text: ''
@@ -2925,12 +2958,12 @@ prx.components.horizontalline = {
 	,caption: 'Horizontal line'
 	,icon: '-320px 0'
 	,helper: prx.url.devices+'/common/horizontalline/helper.png'
-	,width:"100"
-	,height:"1"
+	,width: 100*prx.componentsHelper.getScale(_library)
+	,height: 1*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,resizeHandles : "e,w"
 	,color: prx.comps.defaultcolor
-	,weight: 1
+	,weight: 1*prx.componentsHelper.getScale(_library)
 	,properties: "v,l,o,hpos,vpos,w,r"
 }
 
@@ -2941,12 +2974,12 @@ prx.components.verticalline = {
 	,caption: 'Vertical line'
 	,icon: '-400px 0'
 	,helper: prx.url.devices+'/common/verticalline/helper.png'
-	,width:"1"
-	,height:"100"
+	,width: 1*prx.componentsHelper.getScale(_library)
+	,height: 100*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,resizeHandles : "n,s"
 	,color: prx.comps.defaultcolor
-	,weight: 1
+	,weight: 1*prx.componentsHelper.getScale(_library)
 	,properties: "v,l,o,hpos,vpos,h,r"
 }
 
@@ -2957,43 +2990,58 @@ prx.components.actionarea = {
 	,caption: 'Interaction Area'
 	,icon: '-480px 0'
 	,helper: prx.url.devices+'/common/actionarea/helper.png'
-	,width:"100"
-	,height:"100"
+	,width: 100*prx.componentsHelper.getScale(_library)
+	,height: 100*prx.componentsHelper.getScale(_library)
 }
 
 prx.components.image = {
-	name: 'image'
-	,type: 'image'
-	,lib: _library
-	,caption: 'Image'
-	,icon: '-640px 0'
-	,helper: prx.url.devices+'/common/image/helper.png'
-	,imgSrc: {"fileId":"01eb56561388a5a9015bcab43ddeeab5.svg","folderId":"f1353077251107","assetType":"gallery","url":"f1353077251107/01eb56561388a5a9015bcab43ddeeab5.svg","bucketsource":"main","name":" image_placeholder.svg"}
-	,repeat: false
-	,width:"200"
-	,height:"200"
-	,propagateEvents: false
-	,actions:[]
-  	,overlay: false
-  	,autoResize: true
-  	,aspectratio: true
+    name: 'image'
+    , type: 'image'
+    , lib: _library
+    , caption: 'Image'
+    , icon: '-640px 0'
+    , helper: prx.url.devices + '/common/image/helper.png'
+    , imgSrc: {
+        "fileId": "01eb56561388a5a9015bcab43ddeeab5.svg",
+        "folderId": "f1353077251107",
+        "assetType": "gallery",
+        "url": "f1353077251107/01eb56561388a5a9015bcab43ddeeab5.svg",
+        "bucketsource": "main",
+        "name": " image_placeholder.svg"
+    }
+    , repeat: false
+    , width: 200 * prx.componentsHelper.getScale(_library)
+    , height: 200 * prx.componentsHelper.getScale(_library)
+    , propagateEvents: false
+    , actions: []
+    , overlay: false
+    , autoResize: true
+    , aspectratio: true
 }
 
 prx.components.icon = {
-	name: 'icon'
-	,type: 'image'
-	,lib: _library
-	,caption: 'Icon'
-	,icon: '-800px 0'
-	,helper: prx.url.devices+'/common/icon/helper.png'
-	,imgSrc: {"fileId":"f870b75c7ca176f7edefab7f79b0d24b.svg","name":"circle-star.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/f870b75c7ca176f7edefab7f79b0d24b.svg","folderId":"f1352971179296"}
-	,repeat: false
-	,width:"100"
-	,height:"100"
-	,propagateEvents: false
-	,actions:[]
-  	,overlay: false
-  	,aspectratio: true
+    name: 'icon'
+    , type: 'image'
+    , lib: _library
+    , caption: 'Icon'
+    , icon: '-800px 0'
+    , helper: prx.url.devices + '/common/icon/helper.png'
+    ,
+    imgSrc: {
+        "fileId": "f870b75c7ca176f7edefab7f79b0d24b.svg",
+        "name": "circle-star.svg",
+        "assetType": "icon",
+        "bucketsource": "static",
+        "url": "f1352971179296/f870b75c7ca176f7edefab7f79b0d24b.svg",
+        "folderId": "f1352971179296"
+    }
+    , repeat: false
+    , width: 100 * prx.componentsHelper.getScale(_library)
+    , height: 100 * prx.componentsHelper.getScale(_library)
+    , propagateEvents: false
+    , actions: []
+    , overlay: false
+    , aspectratio: true
 }
 
 
@@ -3004,14 +3052,14 @@ prx.components.placeholder = {
 	,caption: 'Placeholder'
 	,icon: '-720px 0'
 	,helper: prx.url.devices+'/common/placeholder/helper.png'
-	,width:"200"
-	,height:"100"
+	,width: 200*prx.componentsHelper.getScale(_library)
+	,height: 100*prx.componentsHelper.getScale(_library)
 	,text: 'Placeholder'
-	,textSize: 16
+	,textSize: 16*prx.componentsHelper.getScale(_library)
 	,textAlign: 'center'
 	,backgroundColor: 'ffffff'
-	,borderColor: '333333'
-	,thickness: 5
+	,borderColor: '555555'
+	,thickness: 5*prx.componentsHelper.getScale(_library)
 	,actions:[]
 }
 
@@ -3021,10 +3069,10 @@ prx.components.webview = {
 	,lib: _library
 	,caption: 'Web View'
 	,icon: '0 -80px'
-	,helper: prx.url.devices+'/common/webview/helper.png'		
+	,helper: prx.url.devices+'/common/webview/helper.png'
 	,url: 'about:blank'
-	,width:"100"
-	,height:"100"
+	,width: 100*prx.componentsHelper.getScale(_library)
+	,height: 100*prx.componentsHelper.getScale(_library)
 	,scrollable: true
 }
 
@@ -3034,9 +3082,9 @@ prx.components.html = {
 	,lib: _library
 	,caption: 'HTML Code'
 	,icon: '-80px -80px'
-	,helper: prx.url.devices+'/common/html/helper.png'		
-	,width:"100"
-	,height:"100"
+	,helper: prx.url.devices+'/common/html/helper.png'
+	,width: 100*prx.componentsHelper.getScale(_library)
+	,height: 100*prx.componentsHelper.getScale(_library)
 	,html: ''
 }
 
@@ -3046,9 +3094,9 @@ prx.components.audio = {
 	,lib: _library
 	,caption: 'Audio'
 	,icon: '-240px -80px'
-	,helper: prx.url.devices+'/common/audio/helper.png'		
-	,width:"300"
-	,height:"65"
+	,helper: prx.url.devices+'/common/audio/helper.png'
+	,width: 300*prx.componentsHelper.getScale(_library)
+	,height: 65*prx.componentsHelper.getScale(_library)
 	,audioFileWAV: { fileId: '', folderId: '', url: '', assetType: '', name: '' }
 	,audioFileMP3: { fileId: '', folderId: '', url: '', assetType: '', name: '' }
 	,audioFileOGG: { fileId: '', folderId: '', url: '', assetType: '', name: '' }
@@ -3064,9 +3112,9 @@ prx.components.video = {
 	,lib: _library
 	,caption: 'Video'
 	,icon: '-160px -80px'
-	,helper: prx.url.devices+'/common/video/helper.png'		
-	,width:"250"
-	,height:"180"
+	,helper: prx.url.devices+'/common/video/helper.png'
+	,width: 250*prx.componentsHelper.getScale(_library)
+	,height: 180*prx.componentsHelper.getScale(_library)
 	,videoType: 'html5'
 	,videoFileMP4: { fileId: '', folderId: '', url: '', assetType: '', name: '' }
 	,videoFileOGG: { fileId: '', folderId: '', url: '', assetType: '', name: '' }
@@ -3086,8 +3134,8 @@ prx.components.animationtarget = {
 	,caption: 'Animation target'
 	,icon: '-560px 0'
 	,helper: prx.url.devices+'/common/animationtarget/helper.png'
-	,width:"20"
-	,height:"20"
+	,width: 20*prx.componentsHelper.getScale(_library)
+	,height: 20*prx.componentsHelper.getScale(_library)
 	,resizable : false
 	,properties: "v,l,hpos,vpos"
 	,fixPositioning: true
@@ -3100,20 +3148,20 @@ prx.components.tooltip = {
 	,caption: 'Tooltip'
 	,icon: '-320px -80px'
 	,helper: prx.url.devices+ '/common/tooltip/helper.png'
-	,width: '250'
-	,height: '150'
+	,width: 250*prx.componentsHelper.getScale(_library)
+	,height: 150*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderColor: '333333'
+	,borderColor: '555555'
 	,backgroundColor: 'ffffff'
-	,borderWidth: 3
-	,borderRadius: 5
+	,borderWidth: 3*prx.componentsHelper.getScale(_library)
+	,borderRadius: 5*prx.componentsHelper.getScale(_library)
 	,ttDirection: 'bottom'
 	,ttPosition: '50'
 	,text: ''
 	,textFont: 'sans-serif,Helvetica Neue,Arial'
-	,textSize: '12'
-	,textColor: '333333'
-	,textProperties: [] 
+	,textSize: 12*prx.componentsHelper.getScale(_library)
+	,textColor: '383838'
+	,textProperties: []
 	,textAlign: 'left'
 };
 
@@ -3127,36 +3175,36 @@ prx.components.basic_tabbar = {
 	,caption: 'Basic Tabbar'
 	,icon: '-560px -80px'
 	,helper: prx.url.devices+ '/common/basic_tabbar/helper.png'
-	,width:"full"
-	,height:"50"
+	,width: "full"
+	,height: 50*prx.componentsHelper.getScale(_library)
 	,vpos: "bottom"
 	,resizable : true
 	,backgroundColor: 'FFFFFF'
 	,borderWidth: 0
-	,borderColor: 'cccccc'
+	,borderColor: 'C6C6C6'
 	,textFont: 'sans-serif,Helvetica Neue,Arial'
-	,textSize: "10"
-	,textColor:  '333333'
+	,textSize: 10*prx.componentsHelper.getScale(_library)
+	,textColor:  '383838'
 	,textProperties: ["bold"]
 	,iconpos: 'top'
 	,iconSize: 3
 	,activeBackgroundColor: '005fbf'
 	,activeTextColor: 'FFFFFF'
 	,maskEnabled: true
-	,maskInactive: '333333'
+	,maskInactive: '383838'
 	,maskActive: 'FFFFFF'
 	,activeTab: 0
 	,overlay: false
 	,tabs: [
 		{
 	    	text: 'Home'
-	    	,icon: {"fileId":"e6a1ba573190139ceda51280e9fdad9c.svg","name":"kub-home.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/e6a1ba573190139ceda51280e9fdad9c.svg","folderId":"f1352971179296","targetSrc":"generated/e6a1ba573190139ceda51280e9fdad9c_333333.svg","color":"333333"}
+	    	,icon: {"fileId":"e6a1ba573190139ceda51280e9fdad9c.svg","name":"kub-home.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/e6a1ba573190139ceda51280e9fdad9c.svg","folderId":"f1352971179296","targetSrc":"generated/e6a1ba573190139ceda51280e9fdad9c_333333.svg","color":"383838"}
 			,activeicon: {"fileId":"e6a1ba573190139ceda51280e9fdad9c.svg","name":"kub-home.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/e6a1ba573190139ceda51280e9fdad9c.svg","folderId":"f1352971179296","targetSrc":"generated/e6a1ba573190139ceda51280e9fdad9c_ffffff.svg","color":"ffffff"}
 			,actions: []
 	    },
 		{
 	    	text: 'Messages'
-	    	,icon: {"fileId":"1b58b288e91e6a4cb64d90433880003d.svg","name":"mail-2.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/1b58b288e91e6a4cb64d90433880003d.svg","folderId":"f1352971179296","targetSrc":"generated/1b58b288e91e6a4cb64d90433880003d_333333.svg","color":"333333"}
+	    	,icon: {"fileId":"1b58b288e91e6a4cb64d90433880003d.svg","name":"mail-2.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/1b58b288e91e6a4cb64d90433880003d.svg","folderId":"f1352971179296","targetSrc":"generated/1b58b288e91e6a4cb64d90433880003d_333333.svg","color":"383838"}
 		    ,activeicon: {"fileId":"1b58b288e91e6a4cb64d90433880003d.svg","name":"mail-2.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/1b58b288e91e6a4cb64d90433880003d.svg","folderId":"f1352971179296","targetSrc":"generated/1b58b288e91e6a4cb64d90433880003d_ffffff.svg","color":"ffffff"}
 			,actions: []
 		}
@@ -3170,23 +3218,23 @@ prx.components.basic_tabbar_retina = {
 	,caption: 'Basic Tabbar'
 	,icon: '-560px -80px'
 	,helper: prx.url.devices+ '/common/basic_tabbar_retina/helper.png'
-	,width:"full"
-	,height:"96"
+	,width: "full"
+	,height: 96*prx.componentsHelper.getScale(_library)
 	,vpos: "bottom"
 	,resizable : true
 	,backgroundColor: 'FFFFFF'
 	,borderWidth: 0
-	,borderColor: 'cccccc'
+	,borderColor: 'C6C6C6'
 	,textFont: 'sans-serif,Helvetica Neue,Arial'
-	,textSize: "21"
-	,textColor:  '333333'
+	,textSize: 10*prx.componentsHelper.getScale(_library)		//was 21, made 10 as basic tabbar above
+	,textColor:  '383838'
 	,textProperties: ["bold"]
 	,iconpos: 'top'
 	,iconSize: 3
 	,activeBackgroundColor: '005fbf'
 	,activeTextColor: 'FFFFFF'
 	,maskEnabled: true
-	,maskInactive: '333333'
+	,maskInactive: '383838'
 	,maskActive: 'FFFFFF'
 	,activeTab: 0
 	,changeActive: true
@@ -3194,13 +3242,13 @@ prx.components.basic_tabbar_retina = {
 	,tabs: [
 		{
 	    	text: 'Home'
-	    	,icon: {"fileId":"e6a1ba573190139ceda51280e9fdad9c.svg","name":"kub-home.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/e6a1ba573190139ceda51280e9fdad9c.svg","folderId":"f1352971179296","targetSrc":"generated/e6a1ba573190139ceda51280e9fdad9c_333333.svg","color":"333333"}
+	    	,icon: {"fileId":"e6a1ba573190139ceda51280e9fdad9c.svg","name":"kub-home.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/e6a1ba573190139ceda51280e9fdad9c.svg","folderId":"f1352971179296","targetSrc":"generated/e6a1ba573190139ceda51280e9fdad9c_333333.svg","color":"383838"}
 			,activeicon: {"fileId":"e6a1ba573190139ceda51280e9fdad9c.svg","name":"kub-home.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/e6a1ba573190139ceda51280e9fdad9c.svg","folderId":"f1352971179296","targetSrc":"generated/e6a1ba573190139ceda51280e9fdad9c_ffffff.svg","color":"ffffff"}
 			,actions: []
 	    },
 		{
 	    	text: 'Messages'
-	    	,icon: {"fileId":"1b58b288e91e6a4cb64d90433880003d.svg","name":"mail-2.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/1b58b288e91e6a4cb64d90433880003d.svg","folderId":"f1352971179296","targetSrc":"generated/1b58b288e91e6a4cb64d90433880003d_333333.svg","color":"333333"}
+	    	,icon: {"fileId":"1b58b288e91e6a4cb64d90433880003d.svg","name":"mail-2.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/1b58b288e91e6a4cb64d90433880003d.svg","folderId":"f1352971179296","targetSrc":"generated/1b58b288e91e6a4cb64d90433880003d_333333.svg","color":"383838"}
 		    ,activeicon: {"fileId":"1b58b288e91e6a4cb64d90433880003d.svg","name":"mail-2.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/1b58b288e91e6a4cb64d90433880003d.svg","folderId":"f1352971179296","targetSrc":"generated/1b58b288e91e6a4cb64d90433880003d_ffffff.svg","color":"ffffff"}
 			,actions: []
 		}
@@ -3217,12 +3265,12 @@ prx.components.generic_onoffswitch = {
 		,caption: 'Generic On/Off Switch'
 		,icon: '-480px -240px'
 		,helper: 'flipswitch/helper.png'
-		,width:"90"
-		,height:"30"
+		,width: 90*prx.componentsHelper.getScale(_library)
+		,height: 30*prx.componentsHelper.getScale(_library)
 		,resizable : true
-		,borderRadius: 5
+		,borderRadius: 5*prx.componentsHelper.getScale(_library)
 		,switchColor: 'FFFFFF'
-		,switchSize: 34
+		,switchSize: 17*prx.componentsHelper.getScale(_library)
 		,activeLabelText: 'ON'
 		,activeLabelColor: '6194FD'
 		,activeLabelTextColor: 'FFFFFF'

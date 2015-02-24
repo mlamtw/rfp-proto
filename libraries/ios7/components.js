@@ -6,6 +6,9 @@
 var _library = 'ios7';
 var _path = '/ios7/';
 
+prx.library_scales = prx.library_scales || {};
+prx.library_scales.ios7 = 2;
+
 prx.comps.ios7Colors = [{value: '#FF4351',displayValue: '#FF4351'},{value: '#FD6631',displayValue: '#FD6631'},{value: '#FC880F',displayValue: '#FC880F'},{value: '#FEAE1B',displayValue: '#FEAE1B'},{value: '#FFD426',displayValue: '#FFD426'},
                              {value: '#A5DE37',displayValue: '#A5DE37'},{value: '#49E845',displayValue: '#49E845'},{value: '#55DAE1',displayValue: '#55DAE1'},{value: '#1B9AF7',displayValue: '#1B9AF7'},{value: '#7B72E9',displayValue: '#7B72E9'},
                              {value: '#DB49D8',displayValue: '#DB49D8'},{value: '#ED4694',displayValue: '#ED4694'},{value: '#000000',displayValue: '#000000'},{value: '#333333',displayValue: '#333333'},
@@ -182,6 +185,7 @@ prx.types.ios7_navbar_buttons = {
 					,{
 						caption: false,
 						name: 'borderPos',
+						proptype: 'border-position',
 						type: 'select',
 						value: function(item,name) { return item.borderPos; },
 						values: [{ value: 'none', displayValue: 'None' },{ value: 'top', displayValue: 'Top' },{ value: 'bottom', displayValue: 'Bottom' }],
@@ -215,6 +219,7 @@ prx.types.ios7_navbar_buttons = {
 					{
 						caption: false,
 						name: 'btnTextFont',
+						proptype: 'font-family-2-buttons',
 						type: 'select',
 						value: function(item,name) { return item.btnTextFont; },
 						values: function(){ return prx.comps.fonts },
@@ -228,6 +233,7 @@ prx.types.ios7_navbar_buttons = {
 					{
 						caption: false,
 						name: 'btnTextSize',
+						proptype: 'font-size-2-buttons',
 						type: 'combo-select',
 						value: function(item,name) { return item.btnTextSize; },
 						values: prx.comps.textsize,
@@ -241,6 +247,7 @@ prx.types.ios7_navbar_buttons = {
 					{
 						caption: false,
 						name: 'btnTextColor',
+						proptype: 'font-color-2-buttons',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.btnTextColor; },
 						values: prx.comps.ios7Colors,
@@ -257,6 +264,7 @@ prx.types.ios7_navbar_buttons = {
 					{
 						caption: false,
 						name: 'btnTextProperties',
+						proptype: 'text-properties-2-buttons',
 						type: 'checkbox',
 						value: function(item,name) { return item.btnTextProperties; },
 						values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}],
@@ -480,6 +488,7 @@ prx.types.ios7_toolbar = {
   					,{
   						caption: false,
   						name: 'borderPos',
+  						proptype: 'border-position',
   						type: 'select',
   						value: function(item,name) { return item.borderPos; },
   						values: [{ value: 'none', displayValue: 'None' },{ value: 'top', displayValue: 'Top' },{ value: 'bottom', displayValue: 'Bottom' }],
@@ -574,19 +583,17 @@ prx.types.ios7_statusbar = {
 	,onDisplay: function(item,containerid,pageid,symbol) {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
 		var _dims = prx.componentsHelper.getRealDims(item);
-		var percent = _dims.height/40;
 
-		var signalDotDims= 9;
-		var signalDotMargin= 15;
-		var batteryMarginTop= 10;
-		var batteryHeight= 20;
-		var batteryWidth= 40;
-		var batteryInnerDims= 6;
-		var batteryInnerLeftPos= -3;
-		var batteryInnerTopPos= 6;
-		var textSize= 24;
+		var signalDotDims= 5*prx.componentsHelper.getScale(item.lib);
+		var signalDotMargin= 7*prx.componentsHelper.getScale(item.lib);
+		var batteryMarginTop= 5*prx.componentsHelper.getScale(item.lib);
+		var batteryHeight= 10*prx.componentsHelper.getScale(item.lib);
+		var batteryWidth= 20*prx.componentsHelper.getScale(item.lib);
+		var batteryInnerDims= 3*prx.componentsHelper.getScale(item.lib);
+		var batteryInnerLeftPos= -2*prx.componentsHelper.getScale(item.lib);
+		var batteryInnerTopPos= 3*prx.componentsHelper.getScale(item.lib);
+		var textSize= 12*prx.componentsHelper.getScale(item.lib);
 		var now = new Date();
-
 
 		now.getMinutes()
 
@@ -595,11 +602,11 @@ prx.types.ios7_statusbar = {
 
 		cR += '<style>';
 		cR += '#'+_id+' .ios7-statusbar-inner { background-color: '+prx.utils.getColor(item.backgroundColor)+'; color: '+prx.utils.getColor(item.foregroundColor)+'; }';
-		cR += '#'+_id+' .ios7-statusbar-signal-dot { width: '+Math.floor(signalDotDims*(percent))+'px; height: '+Math.floor(signalDotDims*(percent))+'px; margin-top: '+Math.floor(signalDotMargin*percent)+'px; margin-bottom: '+Math.floor(signalDotMargin*percent)+'px; background-color: '+prx.utils.getColor(item.foregroundColor)+'; border-color: '+prx.utils.getColor(item.foregroundColor)+'; }';
-		cR += '#'+_id+' .ios7-statusbar-battery-life-icon { width: '+Math.floor(batteryWidth*percent)+'px; height: '+Math.floor(batteryHeight*percent)+'px; margin-top: '+Math.floor(batteryMarginTop*percent)+'px; background-color: '+prx.utils.getColor(item.foregroundColor)+'; border-color: '+prx.utils.getColor(item.foregroundColor)+'; }';
-		cR += '#'+_id+' .ios7-statusbar-battery-life-icon-battery-pole-inner { width: '+Math.floor(batteryInnerDims*(percent))+'px; height: '+Math.floor(batteryInnerDims*(percent))+'px; left: '+Math.floor(batteryInnerLeftPos*(percent))+'px; top: '+Math.ceil(batteryInnerTopPos*(percent))+'px; background-color: '+prx.utils.getColor(item.foregroundColor)+'; }';
+		cR += '#'+_id+' .ios7-statusbar-signal-dot { width: '+signalDotDims+'px; height: '+signalDotDims+'px; margin-top: '+signalDotMargin+'px; margin-bottom: '+signalDotMargin+'px; background-color: '+prx.utils.getColor(item.foregroundColor)+'; border-color: '+prx.utils.getColor(item.foregroundColor)+'; }';
+		cR += '#'+_id+' .ios7-statusbar-battery-life-icon { width: '+batteryWidth+'px; height: '+batteryHeight+'px; margin-top: '+batteryMarginTop+'px; background-color: '+prx.utils.getColor(item.foregroundColor)+'; border-color: '+prx.utils.getColor(item.foregroundColor)+'; }';
+		cR += '#'+_id+' .ios7-statusbar-battery-life-icon-battery-pole-inner { width: '+batteryInnerDims+'px; height: '+batteryInnerDims+'px; left: '+batteryInnerLeftPos+'px; top: '+batteryInnerTopPos+'px; background-color: '+prx.utils.getColor(item.foregroundColor)+'; }';
 		cR += '#'+_id+' .ios7-statusbar-provider, .ios7-statusbar-battery-life-text { line-height: '+_dims.height+'px; }';
-		cR += '#'+_id+' .ios7-statusbar-provider, .ios7-statusbar-battery-life-text, .ios7-statusbar-time { font-size: '+(textSize*percent)+'px; }';
+		cR += '#'+_id+' .ios7-statusbar-provider, .ios7-statusbar-battery-life-text, .ios7-statusbar-time { font-size: '+textSize+'px; }';
 		cR += '</style>';
 
 		cR += '<div class="ios7-statusbar-inner liveUpdate-backgroundColor liveUpdate-foregroundColor-color changeProperty-backgroundColor">';
@@ -624,27 +631,6 @@ prx.types.ios7_statusbar = {
 		cR += '</div>';
 		return cR;
 	}
-	,onResize: function(item,containerid) {
-		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
-		var _dims = prx.componentsHelper.getRealDims(item);
-		var percent = _dims.height/40;
-
-		var signalDotDims= 9;
-		var signalDotMargin= 15;
-		var batteryMarginTop= 10;
-		var batteryHeight= 20;
-		var batteryWidth= 40;
-		var batteryInnerDims= 6;
-		var batteryInnerLeftPos= -3;
-		var batteryInnerTopPos= 6;
-		var textSize= 24;
-
-		$('#'+_id).find('.ios7-statusbar-battery-life-icon').css({'width': Math.floor(batteryWidth*percent), 'height': Math.floor(batteryHeight*percent), 'margin-top': Math.floor(batteryMarginTop*percent)+'px'});
-		$('#'+_id).find('.ios7-statusbar-signal-dot').width(Math.floor(signalDotDims*percent)).height(Math.floor(signalDotDims*percent)).css({'margin-top': Math.floor(signalDotMargin*percent)+'px', 'margin-bottom':Math.floor(signalDotMargin*percent)+'px'});
-		$('#'+_id).find('.ios7-statusbar-provider, .ios7-statusbar-battery-life-text, .ios7-statusbar-time').css('font-size', textSize*percent+'px');
-		$('#'+_id).find('.ios7-statusbar-provider, .ios7-statusbar-battery-life-text').css('line-height', _dims.height+'px');
-		$('#'+_id).find('.ios7-statusbar-battery-life-icon-battery-pole-inner').width(Math.floor(batteryInnerDims*percent)).height(Math.floor(batteryInnerDims*percent)).css({'left': Math.floor(batteryInnerLeftPos*percent)+'px', 'top': Math.ceil(batteryInnerTopPos*percent)+'px'});
-	}
 	,propertyGroups: [
 		{
 		    caption: 'Style',
@@ -654,6 +640,7 @@ prx.types.ios7_statusbar = {
 					{
 						caption: 'Foreground',
 						name: 'foregroundColor',
+						proptype: 'foreground-color',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.foregroundColor; },
 						values: prx.comps.ios7Colors,
@@ -905,6 +892,7 @@ prx.types.ios7_segmentedcontrol = {
 					{
 						caption: 'Active',
 						name: 'activeBackgroundColor',
+						proptype: 'background-color-2-active',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.activeBackgroundColor; },
 						values: prx.comps.ios7Colors,
@@ -937,6 +925,7 @@ prx.types.ios7_segmentedcontrol = {
 					{
 						caption: 'Active',
 						name: 'activeTextColor',
+						proptype: 'font-color-2-active',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.activeTextColor; },
 						values: prx.comps.ios7Colors,
@@ -1083,6 +1072,7 @@ prx.types.ios7_pagecontroller = {
 					{
 						caption: 'Active',
 						name: 'activeBackgroundColor',
+						proptype: 'background-color-2-active',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.activeBackgroundColor; },
 						values: prx.comps.ios7Colors,
@@ -1099,6 +1089,7 @@ prx.types.ios7_pagecontroller = {
 					{
 						caption: 'Border <span class="property-icon property-border-radius" title="Border radius"></span>',
 						name: 'borderRadius',
+						proptype: 'border-radius',
 						type: 'combo-select',
 						value: function(item,name) { return item.borderRadius; },
 						values: { min: 0, max: 20, step: 1 },
@@ -1362,6 +1353,7 @@ prx.types.ios7_textfield = {
 					{
 					   caption: 'Placeholder Color',
 					   name: 'placeholderColor',
+					   proptype: 'placeholder-color',
 					   type: 'combo-colorpicker',
 					   value: function(item,name) { if(typeof(item.placeholderColor)=='undefined') { return '999999'; } return item.placeholderColor; }
 						,values: prx.comps.ios7Colors
@@ -1457,24 +1449,22 @@ prx.types.ios7_textarea = {
 			});
 		}
 	}
-
 	,editableProperties: [
-              {
-      	    	caption: 'Value'
-      	    	,name: 'value'
-      	    	,type: 'textarea'
-      	    	,value: function(item,name) {
-      	    		return item.value;
-      	    	}
-      	    	,changeProperty: {
-					caption: 'Value',
-					property: 'textarea-value',
-					selector: 'textarea',
-					transitionable: false
-				}
-      	    }
-	  	]
-
+          {
+  	    	caption: 'Value'
+  	    	,name: 'value'
+  	    	,type: 'textarea'
+  	    	,value: function(item,name) {
+  	    		return item.value;
+  	    	}
+  	    	,changeProperty: {
+				caption: 'Value',
+				property: 'textarea-value',
+				selector: 'textarea',
+				transitionable: false
+			}
+  	    }
+  	]
 	,interactions: [
 			prx.commonproperties.actions
 		]
@@ -1532,6 +1522,7 @@ prx.types.ios7_textarea = {
 					{
 						caption: 'Placeholder Color',
 						name: 'placeholderColor',
+						proptype: 'placeholder-color',
 						type: 'combo-colorpicker',
 						value: function(item,name) { if(typeof(item.placeholderColor)=='undefined') { return '999999'; } return item.placeholderColor; }
 						,values: prx.comps.ios7Colors
@@ -1634,6 +1625,7 @@ prx.types.ios7_checkbox = {
 					{
 						caption: 'Background',
 						name: 'backgroundColor',
+						proptype: 'background-color',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.backgroundColor; },
 						values: prx.comps.ios7Colors,
@@ -1646,6 +1638,7 @@ prx.types.ios7_checkbox = {
 					{
 						caption: 'Active',
 						name: 'activeBackgroundColor',
+						proptype: 'background-color-2-active',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.activeBackgroundColor; },
 						values: prx.comps.ios7Colors,
@@ -1726,7 +1719,7 @@ prx.types.ios7_switch = {
 		cR += '<style>'
 		cR += '#'+_id+' label { border-radius: '+(_dims.height/2)+'px; border: '+item.borderWidth+'px solid '+prx.utils.getColor(item.inactiveBorderColor)+'; background-color: '+prx.utils.getColor(item.inactiveLabelColor)+'; }'
 		cR += '#'+_id+' input:checked + label { border-color: '+prx.utils.getColor(item.activeBorderColor)+'; background-color: '+prx.utils.getColor(item.activeLabelColor)+'; }'
-		cR += '#'+_id+' .switch { left: '+item.borderWidth+'px; top: '+item.borderWidth+'px; bottom: '+item.borderWidth+'px; width: '+(_dims.height-item.borderWidth*2)+'px; background-color: '+prx.utils.getColor(item.switchColor)+'; }'
+		cR += '#'+_id+' .switch { width: '+_dims.height+'px; background-color: '+prx.utils.getColor(item.switchColor)+'; border: '+item.borderWidth+'px solid '+prx.utils.getColor(item.inactiveBorderColor)+'; }'
 		cR += '#'+_id+' input:checked + label .switch { left: '+(_dims.width - _dims.height + parseInt(item.borderWidth))+'px; border-color: '+prx.utils.getColor(item.activeBorderColor)+'; }'
 		cR += '</style>'
 
@@ -1820,6 +1813,7 @@ prx.types.ios7_switch = {
 					{
 						caption: 'Label Inactive'
 						,name: 'inactiveLabelColor'
+						,proptype: 'background-color'
 						,type: 'combo-colorpicker'
 						,value: function(item,name) {
 							return item.inactiveLabelColor;
@@ -1834,6 +1828,7 @@ prx.types.ios7_switch = {
 					{
 						caption: 'Active'
 						,name: 'activeLabelColor'
+						,proptype: 'background-color-active'
 						,type: 'combo-colorpicker'
 						,value: function(item,name) {
 							return item.activeLabelColor;
@@ -1851,6 +1846,7 @@ prx.types.ios7_switch = {
 				 	{
 						caption: 'Inactive',
 						name: 'inactiveBorderColor',
+						proptype: 'border-color',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.inactiveBorderColor; },
 						values: prx.comps.ios7Colors,
@@ -1863,6 +1859,7 @@ prx.types.ios7_switch = {
 				 	,{
 						caption: 'Active',
 						name: 'activeBorderColor',
+						proptype: 'border-color-2-active',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.activeBorderColor; },
 						values: prx.comps.ios7Colors,
@@ -1876,6 +1873,7 @@ prx.types.ios7_switch = {
 					{
 						caption: 'Switch'
 						,name: 'switchColor'
+						,proptype: 'background-color-3-switch'
 						,type: 'combo-colorpicker'
 						,value: function(item,name) {
 							return item.switchColor;
@@ -1926,7 +1924,7 @@ prx.types.ios7_slider = {
 		cR += '<style>'
 		cR += '#'+_id+' .slider-bar { height: '+item.barThickness+'px; background-color: '+prx.utils.getColor(item.barColor)+'; margin-top: -'+(item.barThickness/2)+'px; }'
 		cR += '#'+_id+' .slider-bar-filled { width: '+item.sliderPosition+'%; background-color: '+prx.utils.getColor(item.fillBarColor)+' }'
-		cR += '#'+_id+' .slider-button { background-color: '+prx.utils.getColor(item.sliderColor)+'; border-radius: '+item.sliderBorderRadius + ((item.sliderBorderRadius == parseInt(item.sliderBorderRadius)) ? 'px' : '')+'; width: '+_dims.height+'px; margin-left: -'+(_dims.height/2)+'px; margin-right: -'+(_dims.height/2)+'px; left: '+item.sliderPosition+'%; }';
+		cR += '#'+_id+' .slider-button { background-color: '+prx.utils.getColor(item.sliderColor)+'; border-radius: '+item.sliderBorderRadius + ((item.sliderBorderRadius == parseInt(item.sliderBorderRadius)) ? 'px' : '')+'; width: '+_dims.height+'px; margin-left: -'+(_dims.height/2)+'px; margin-right: -'+(_dims.height/2)+'px; }';
 		cR += '</style>'
 		cR += '<div class="slider-bar liveUpdate-barColor">';
 		cR += '<div class="slider-bar-filled liveUpdate-fillBarColor"></div>'
@@ -1943,17 +1941,23 @@ prx.types.ios7_slider = {
 			width: _dims.height+'px',
 			marginLeft: '-'+(_dims.height/2)+'px',
 			marginRight: '-'+(_dims.height/2)+'px'
-		})
+		});
+		
+		if(prx.editor){
+		$('#'+_id).find('.slider-button').css({ 
+			'left': ((_dims.width)*(item.sliderPosition*0.01)) + 'px'
+		});
+		}
 
 	}
 	,afterDisplay: function(item,containerid,pageid,symbol) {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
 
+		var _dims = prx.componentsHelper.getRealDims(item,symbol);
+
 		if(!prx.editor) {
 
-			var _dims = prx.componentsHelper.getRealDims(item,symbol);
-
-			Draggable.create('#'+_id+' .slider-button', {
+			prx.draggable._draggables['#'+_id+' .slider-button'] = Draggable.create('#'+_id+' .slider-button', {
 				type: 'x',
 				bounds: { left: -(_dims.height/2), width: parseInt(_dims.width) + parseInt(_dims.height), top: 0, height: 0 },
 				onDragStart: function(){
@@ -2008,14 +2012,21 @@ prx.types.ios7_slider = {
 					$('#'+_id).trigger('sliderdragend');
 				}
 			});
+			
+			TweenLite.set('#'+_id+' .slider-button',{x:((_dims.width)*(item.sliderPosition*0.01))});
 
 			$('#'+_id+' .slider-bar').click(function(e){
 				var _pos = e.pageX - $(this).offset().left;
 
-				$(this).find('.slider-bar-filled').width(_pos);
-				$(this).siblings('.slider-button').css({ left: _pos + 'px' });
-
 				var progress = Math.ceil((_pos / $('#'+_id).width())*100)
+				
+				TweenLite.to($('#'+_id+' .slider-bar-filled'), 1, {width:_pos});
+				TweenLite.to($('#'+_id+' .slider-button'), 1, {x:_pos});
+
+				//$(this).find('.slider-bar-filled').width(_pos);
+				//$(this).siblings('.slider-button').css({ left: _pos + 'px' });
+				
+				prx.draggable._draggables['#'+_id+' .slider-button'][0].update();
 
 				if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
 
@@ -2025,6 +2036,11 @@ prx.types.ios7_slider = {
 				$('#'+_id).trigger('sliderdragstart');
 				$('#'+_id).trigger('sliderdrag');
 				$('#'+_id).trigger('sliderdragend');
+			});
+		}
+		else {	
+			$('#'+_id).find(' .slider-button').css({ 
+				'left': ((_dims.width)*(item.sliderPosition*0.01)) + 'px'
 			});
 		}
 	}
@@ -2041,6 +2057,7 @@ prx.types.ios7_slider = {
 					{
 						caption: 'Thickness'
 						,name: 'barThickness'
+						,proptype: 'bar-thickness'
 						,type: 'combo-select'
 						,value: function(item,name) {
 							return item.barThickness;
@@ -2057,6 +2074,7 @@ prx.types.ios7_slider = {
 					{
 						caption: 'Color'
 						,name: 'barColor'
+						,proptype: 'background-color'
 						,type: 'combo-colorpicker'
 						,value: function(item,name) {
 							return item.barColor;
@@ -2074,6 +2092,7 @@ prx.types.ios7_slider = {
 					{
 						caption: 'Fill Color'
 						,name: 'fillBarColor'
+						,proptype: 'background-color-2-fill'
 						,type: 'combo-colorpicker'
 						,value: function(item,name) {
 							return item.fillBarColor;
@@ -2097,6 +2116,7 @@ prx.types.ios7_slider = {
 					{
 						caption: 'Color'
 						,name: 'sliderColor'
+						,proptype: 'background-color-3-slider'
 						,type: 'combo-colorpicker'
 						,value: function(item,name) {
 							return item.sliderColor;
@@ -2113,6 +2133,7 @@ prx.types.ios7_slider = {
 					{
 						caption: '<span class="property-icon property-border-radius" title="Border radius"></span>'
 						,name: 'sliderBorderRadius'
+						,proptype: 'border-radius'
 						,type: 'combo-select'
 						,value: function(item,name) {
 							return item.sliderBorderRadius;
@@ -2168,7 +2189,7 @@ prx.types.ios7_picker = {
 			cR += '</style>';
 
 			cR += '<div class="inner liveUpdate-backgroundColor changeProperty-backgroundColor liveUpdate-textColor-color changeProperty-textColor changeProperty-textFont changeProperty-textSize changeProperty-textAlign" id="' + _id + '-inner">';
-			cR += '<ul style="padding: '+(_dims.height/2-32)+'px 0;">';
+			cR += '<ul style="padding: '+(_dims.height/2-(16*prx.componentsHelper.getScale(item.lib)))+'px 0;">';
 
 			for(var i = 0; i < _options.length; i++) {
 				cR += '<li>';
@@ -2186,7 +2207,7 @@ prx.types.ios7_picker = {
 		}
 		,onResize: function(item,containerid) {
 			var _id = (!containerid) ? item.id : containerid+'-'+item.id;
-			$('#' + _id + ' ul').css('padding', (item.height/2-32)+'px 0');
+			$('#' + _id + ' ul').css('padding', (item.height/2-(16*prx.componentsHelper.getScale(item.lib)))+'px 0');
 		}
 		,afterDisplay: function(item,containerid) {
 			var _id = (!containerid) ? item.id : containerid+'-'+item.id;
@@ -2208,9 +2229,9 @@ prx.types.ios7_picker = {
 						prx.scrollable._scrollables[_id + '-inner'].on('scrollEnd', function() {
 							// ROUND POSITION TO NEAREST LI (64 = LI HEIGHT)
 
-							var index = Math.abs(Math.round(prx.scrollable._scrollables[_id + '-inner'].y/64));
+							var index = Math.abs(Math.round(prx.scrollable._scrollables[_id + '-inner'].y/(32*prx.componentsHelper.getScale(item.lib))));
 							$('#'+_id+' li').eq(index).find('input').attr('checked', 'checked')
-							prx.scrollable._scrollables[_id + '-inner'].scrollTo(0,index*-64);
+							prx.scrollable._scrollables[_id + '-inner'].scrollTo(0,index*-(32*prx.componentsHelper.getScale(item.lib)));
 
 							if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
 					        prx.variables._triggerData['#'+_id]['pickerchange'] = { selected: $('#'+_id+' li').eq(index).find('label').text() }
@@ -2223,7 +2244,7 @@ prx.types.ios7_picker = {
 
 						prx.scrollable._scrollables[_id + '-inner'].on('scroll', function(a,b) {
 
-							var index = Math.abs(Math.round(prx.scrollable._scrollables[_id + '-inner'].y/64));
+							var index = Math.abs(Math.round(prx.scrollable._scrollables[_id + '-inner'].y/(32*prx.componentsHelper.getScale(item.lib))));
 							$('#'+_id+' li').eq(index).find('input').attr('checked', 'checked')
 						});
 
@@ -2238,7 +2259,7 @@ prx.types.ios7_picker = {
 							}
 							*/
 
-							prx.scrollable._scrollables[_id + '-inner'].scrollTo(0,-$(this).index() * 64, 300);
+							prx.scrollable._scrollables[_id + '-inner'].scrollTo(0,-$(this).index() * (32*prx.componentsHelper.getScale(item.lib)), 150*prx.componentsHelper.getScale(item.lib));
 
 							if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
 					        prx.variables._triggerData['#'+_id]['pickerchange'] = { selected: $(this).text() }
@@ -2251,14 +2272,14 @@ prx.types.ios7_picker = {
 						// DEFAULT SELECTED ITEM
 						var _options = item.values.split("<br />");
 						if(item.selectedValue <= _options.length && item.selectedValue!=-1) {
-							prx.scrollable._scrollables[_id + '-inner'].scrollTo(0,-item.selectedValue * 64);
+							prx.scrollable._scrollables[_id + '-inner'].scrollTo(0,-item.selectedValue * (32*prx.componentsHelper.getScale(item.lib)));
 						}
 					} catch(err){};
 				//}
 			} else {
 				var _options = item.values.split("<br />");
 				if(item.selectedValue < _options.length && item.selectedValue!=-1) {
-					$('#' + _id + ' ul').css('margin-top', (-item.selectedValue * 64) + 'px');
+					$('#' + _id + ' ul').css('margin-top', (-item.selectedValue * (32*prx.componentsHelper.getScale(item.lib))) + 'px');
 				}
 			}
 		}
@@ -2285,6 +2306,7 @@ prx.types.ios7_picker = {
 						{
 							caption: false,
 							name: 'textColor',
+							proptype: 'font-color',
 							type: 'combo-colorpicker',
 							value: function(item,name) { return item.textColor; },
 							values: prx.comps.ios7Colors, liveUpdate: 'color,border-color',
@@ -2297,6 +2319,7 @@ prx.types.ios7_picker = {
 						{
 							caption: 'Active'
 							,name: 'activeTextColor'
+							,proptype: 'font-color-2-active'
 							,type: 'combo-colorpicker'
 							,value: function(item,name) {
 								return item.activeTextColor
@@ -2541,6 +2564,7 @@ prx.types.ios8_searchbar = {
 					{
 					   caption: 'Placeholder Color',
 					   name: 'placeholderColor',
+					   proptype: 'placeholder-color',
 					   type: 'combo-colorpicker',
 					   value: function(item,name) {
 						   if(typeof(item.placeholderColor)=='undefined') { return '999999'; }
@@ -2724,6 +2748,7 @@ prx.types.ios7_listcomplex = {
 					,{
 						caption: 'Active',
 						name: 'activeBackgroundColor',
+						proptype: 'background-color-2-active',
 						type: 'combo-colorpicker',
 						value: function(item,name){
 							return item.activeBackgroundColor
@@ -2742,6 +2767,7 @@ prx.types.ios7_listcomplex = {
 					{
 						caption: 'Border (px)',
 						name: 'borderWidth',
+						proptype: 'border-width',
 						type: 'combo-select',
 						value: function(item,name)
 						{
@@ -2796,6 +2822,7 @@ prx.types.ios7_listcomplex = {
 					,{
 						caption: 'Active',
 						name: 'activeTextColor',
+						proptype: 'font-color-2-active',
 						type: 'combo-colorpicker',
 						value: function(item,name){
 							return item.activeTextColor
@@ -2817,9 +2844,9 @@ prx.types.ios7_listcomplex = {
 			properties: [
 				[
 					{
-
 						caption: false,
 						name: 'subFont',
+						proptype: 'font-family-2-subtitle',
 						type: 'select',
 						value: function(item,name) { if (typeof(item.subFont) == "undefined") { return 'Helvetica, Arial, sans-serif'; } return item.subFont; },
 						values: function() { return prx.comps.fonts; }
@@ -2833,6 +2860,7 @@ prx.types.ios7_listcomplex = {
 					},{
 						caption: false,
 						name: 'subSize',
+						proptype: 'font-size-2-subtitle',
 						type: 'combo-select',
 						value: function(item,name) { if (typeof(item.subSize) == "undefined") {return 12;} return item.subSize; },
 						values: prx.comps.textsize
@@ -2846,6 +2874,7 @@ prx.types.ios7_listcomplex = {
 					},{
 						caption: false,
 						name: 'subColor',
+						proptype: 'font-color-3-subtitle',
 						type: 'combo-colorpicker',
 						value: function(item,name) { if (typeof(item.subColor) == "undefined") {return '999999';} return item.subColor; }
 						,values: prx.comps.ios7Colors
@@ -2862,6 +2891,7 @@ prx.types.ios7_listcomplex = {
 					{
 						caption: false,
 						name: 'subProperties',
+						proptype: 'text-properties-2-subtitle',
 						type: 'checkbox',
 						value: function(item,name) { if(typeof(item.subProperties) == "undefined") {item.subProperties = [];} return item.subProperties; },
 						values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}]
@@ -2876,6 +2906,7 @@ prx.types.ios7_listcomplex = {
 					{
 						caption: 'Active',
 						name: 'activeSubColor',
+						proptype: 'font-color-4-subtitle-active',
 						type: 'combo-colorpicker',
 						value: function(item,name){
 							if(typeof(item.activeSubColor) == "undefined") { return 'FFFFFF'; }
@@ -2900,6 +2931,7 @@ prx.types.ios7_listcomplex = {
 					{
 						caption: false,
 						name: 'valueFont',
+						proptype: 'font-family-3-value',
 						type: 'select',
 						value: function(item,name) { return item.valueFont; },
 						values: function() { return prx.comps.fonts; }
@@ -2913,6 +2945,7 @@ prx.types.ios7_listcomplex = {
 					},{
 						caption: false,
 						name: 'valueSize',
+						proptype: 'font-size-3-value',
 						type: 'combo-select',
 						value: function(item,name) { return item.valueSize; },
 						values: prx.comps.textsize
@@ -2926,6 +2959,7 @@ prx.types.ios7_listcomplex = {
 					},{
 						caption: false,
 						name: 'valueColor',
+						proptype: 'font-color-5-value',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.valueColor; }
 						,values: prx.comps.ios7Colors
@@ -2942,6 +2976,7 @@ prx.types.ios7_listcomplex = {
 					{
 						caption: false,
 						name: 'valueProperties',
+						proptype: 'text-properties-3-value',
 						type: 'checkbox',
 						value: function(item,name) { if(typeof(item.valueProperties) == "undefined") {item.valueProperties = [];} return item.valueProperties; },
 						values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}]
@@ -2955,6 +2990,7 @@ prx.types.ios7_listcomplex = {
 					,{
 						caption: 'Active',
 						name: 'activeValueColor',
+						proptype: 'font-color-6-value-active',
 						type: 'combo-colorpicker',
 						value: function(item,name){
 							return item.activeValueColor
@@ -2979,6 +3015,7 @@ prx.types.ios7_listcomplex = {
 					{
 						caption: false,
 						name: 'badgeFont',
+						proptype: 'font-family-4-badge',
 						type: 'select',
 						value: function(item,name) { return item.badgeFont; },
 						values: function() { return prx.comps.fonts; }
@@ -2992,6 +3029,7 @@ prx.types.ios7_listcomplex = {
 					},{
 						caption: false,
 						name: 'badgeSize',
+						proptype: 'font-size-4-badge',
 						type: 'combo-select',
 						value: function(item,name) { return item.badgeSize; },
 						values: prx.comps.textsize
@@ -3005,6 +3043,7 @@ prx.types.ios7_listcomplex = {
 					},{
 						caption: false,
 						name: 'badgeColor',
+						proptype: 'font-color-7-badge',
 						type: 'combo-colorpicker',
 						value: function(item,name) { return item.badgeColor; }
 						,values: prx.comps.ios7Colors
@@ -3021,6 +3060,7 @@ prx.types.ios7_listcomplex = {
 					{
 						caption: false,
 						name: 'badgeProperties',
+						proptype: 'text-properties-4-badge',
 						type: 'checkbox',
 						value: function(item,name) { if(typeof(item.badgeProperties) == "undefined") {item.badgeProperties = [];} return item.badgeProperties; },
 						values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}]
@@ -3033,6 +3073,7 @@ prx.types.ios7_listcomplex = {
 					,{
 						caption: 'Background',
 						name: 'badgeBackgroundColor',
+						proptype: 'background-color-3-badge',
 						type: 'combo-colorpicker',
 						value: function(item,name){
 							return item.badgeBackgroundColor
@@ -3073,6 +3114,7 @@ prx.types.ios7_listcomplex = {
 					{
 						caption: false
 						,name: 'iconSize'
+						,proptype: 'icon-size'
 						,type: 'select'
 						,value: function(item,name) {
 							return item.iconSize;
@@ -3574,7 +3616,7 @@ prx.types.ios7_alert = {
 		    properties: [
 		        [
 					prx.commonproperties.ios7BackgroundColor,
-					{ caption: 'Border', name: 'borderColor', type: 'combo-colorpicker', value: function(item,name) { return item.borderColor; }, values: prx.comps.ios7Colors, liveUpdate: 'border-color', changeProperty: { caption: 'Border width', selector: '.changeProperty-borderWidth', property: 'border-width', transitionable: true } }
+					{ caption: 'Border', name: 'borderColor', proptype: 'border-color', type: 'combo-colorpicker', value: function(item,name) { return item.borderColor; }, values: prx.comps.ios7Colors, liveUpdate: 'border-color', changeProperty: { caption: 'Border width', selector: '.changeProperty-borderWidth', property: 'border-width', transitionable: true } }
 					,prx.commonproperties.borderRadius
 				]
 			]
@@ -3641,6 +3683,7 @@ prx.types.ios7_alert = {
 	   		         	{
 	   		         		caption: false,
 	   		         		name: 'textProperties',
+	   		         		proptype: 'text-properties',
 	   		         		type: 'checkbox',
 	   		         		value: function(item,name,index) {  return item.buttons[index].textProperties; },
 	   		         		values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}],
@@ -3652,6 +3695,7 @@ prx.types.ios7_alert = {
 	   		         	{
 	   		         		caption: false,
 	   		         		name: 'textColor',
+	   		         		proptype: 'font-color-2-buttons',
 	   		         		type: 'combo-colorpicker',
 	   		         		value: function(item,name,index) { return item.buttons[index].textColor; },
 	   		         		values: prx.comps.ios7Colors,
@@ -3730,7 +3774,7 @@ prx.types.ios7_actionsheet = {
 		    properties: [
 		        [
 					prx.commonproperties.ios7BackgroundColor,
-					{ caption: 'Border', name: 'borderColor', type: 'combo-colorpicker', value: function(item,name) { return item.borderColor; }, values: prx.comps.ios7Colors, liveUpdate: 'border-color', changeProperty: { caption: 'Border width', selector: '.changeProperty-borderWidth', property: 'border-width', transitionable: true } }
+					{ caption: 'Border', name: 'borderColor', proptype: 'border-color', type: 'combo-colorpicker', value: function(item,name) { return item.borderColor; }, values: prx.comps.ios7Colors, liveUpdate: 'border-color', changeProperty: { caption: 'Border width', selector: '.changeProperty-borderWidth', property: 'border-width', transitionable: true } }
 					,prx.commonproperties.borderRadius
 				]
 			]
@@ -3818,6 +3862,7 @@ prx.types.ios7_actionsheet = {
 	   		         	{
 	   		         		caption: false,
 	   		         		name: 'textProperties',
+	   		         		proptype: 'text-properties',
 	   		         		type: 'checkbox',
 	   		         		value: function(item,name,index) { return item.buttons[index].textProperties; },
 	   		         		values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}],
@@ -3829,6 +3874,7 @@ prx.types.ios7_actionsheet = {
 	   		         	{
 	   		         		caption: false,
 	   		         		name: 'textColor',
+	   		         		proptype: 'font-color',
 	   		         		type: 'combo-colorpicker',
 	   		         		value: function(item,name,index) { return item.buttons[index].textColor; },
 	   		         		values: prx.comps.ios7Colors,
@@ -3843,6 +3889,7 @@ prx.types.ios7_actionsheet = {
 	   		         {
 	   		         		caption: false,
 	   		         		name: 'titleTextSize',
+	   		         		proptype: 'font-size-2-title',
 	   		         		type: 'combo-select',
 	   		         		value: function(item,name,index) { return item.buttons[index].titleTextSize; },
 	   		         		values: prx.comps.textsize,
@@ -3939,6 +3986,7 @@ prx.types.ios7_control_popover = {
 					{
 						caption: 'Size',
 						name: 'tooltipSize',
+						proptype: 'tooltip-size',
 						type: 'combo-select',
 						value: function(item,name) { return item.tooltipSize; },
 						values: { min: 4, max: 40, step: 2 },
@@ -3950,6 +3998,7 @@ prx.types.ios7_control_popover = {
 					{
 						caption: 'Position',
 						name: 'tooltipPosition',
+						proptype: 'tooltip-position',
 						type: 'combo-select',
 						value: function(item,name) { return item.tooltipPosition; },
 						values: { min: 0, max: 100, step: 5 },
@@ -4052,6 +4101,7 @@ prx.types.ios7_popover = {
 					{
 						caption: 'Border <span class="property-icon property-border-radius" title="Border radius"></span>',
 						name: 'borderRadius',
+						proptype: 'border-radius',
 						type: 'combo-select',
 						value: function(item,name) { return item.borderRadius; },
 						values: { min: 0, max: 40, step: 2 },
@@ -4072,6 +4122,7 @@ prx.types.ios7_popover = {
 					{
 						caption: 'Size',
 						name: 'tooltipSize',
+						proptype: 'tooltip-size',
 						type: 'combo-select',
 						value: function(item,name) { return item.tooltipSize; },
 						values: { min: 4, max: 40, step: 2 },
@@ -4085,6 +4136,7 @@ prx.types.ios7_popover = {
 					{
 						caption: 'Position',
 						name: 'tooltipSide',
+						proptype: 'tooltip-side',
 						type: 'select',
 						value: function(item,name) { return item.tooltipSide; },
 						values: [{ displayValue: 'Top', value: 'top' },{ displayValue: 'Bottom', value: 'bottom' },{ displayValue: 'Left', value: 'left' },{ displayValue: 'Right', value: 'right' }],
@@ -4099,6 +4151,7 @@ prx.types.ios7_popover = {
 					{
 						caption: false,
 						name: 'tooltipPosition',
+						proptype: 'tooltip-position',
 						type: 'combo-select',
 						value: function(item,name) { return item.tooltipPosition; },
 						values: { min: 0, max: 100, step: 5 },
@@ -4144,6 +4197,7 @@ prx.types.ios7_progressbar = {
 					{
 						caption: 'Color'
 						,name: 'barColor'
+						,proptype: 'background-color'
 						,type: 'combo-colorpicker'
 						,value: function(item,name) {
 							return item.barColor;
@@ -4161,6 +4215,7 @@ prx.types.ios7_progressbar = {
 					{
 						caption: 'Fill Color'
 						,name: 'fillBarColor'
+						,proptype: 'background-color-2-fill'
 						,type: 'combo-colorpicker'
 						,value: function(item,name) {
 							return item.fillBarColor;
@@ -4229,6 +4284,7 @@ prx.types.ios7_badge = {
 					{
 						caption: 'Border <span class="property-icon property-border-radius" title="Border radius"></span>',
 						name: 'borderRadius',
+						proptype: 'border-radius',
 						type: 'combo-select',
 						value: function(item,name) { return item.borderRadius; },
 						values: { min: 0, max: 40, step: 2 },
@@ -4384,6 +4440,7 @@ prx.types.ios8_map_tag = {
   		         	{
   		         		caption: 'Background',
   		         		name: 'backgroundColor',
+  		         		proptype: 'background-color',
   		         		type: 'colorpicker',
   		         		value: function(item,name) { return item.backgroundColor; },
   		         		liveUpdate: 'background-color,border-top-color',
@@ -4439,6 +4496,7 @@ prx.types.ios8_map_tag = {
 					{
 						caption: false,
 						name: 'durationFont',
+						proptype: 'font-family-2-duration',
 						type: 'select',
 						value: function(item,name) { return item.durationFont; },
 						values: function(){ return prx.comps.fonts },
@@ -4450,6 +4508,7 @@ prx.types.ios8_map_tag = {
 					{
 						caption: false,
 						name: 'durationSize',
+						proptype: 'font-size-2-duration',
 						type: 'combo-select',
 						value: function(item,name) { return item.durationSize; },
 						values: prx.comps.textsize,
@@ -4466,6 +4525,7 @@ prx.types.ios8_map_tag = {
 					{
 						caption: false,
 						name: 'durationColor',
+						proptype: 'font-color-2-duration',
 						type: 'colorpicker',
 						value: function(item,name) { return item.durationColor; },
 						liveUpdate: 'color',
@@ -4484,6 +4544,7 @@ prx.types.ios8_map_tag = {
 					{
 						caption: false,
 						name: 'durationProperties',
+						proptype: 'text-properties-2-duration',
 						type: 'checkbox',
 						value: function(item,name) { return item.durationProperties; },
 						values: [{ value: 'bold', displayValue: '<span class="property-icon property-text-bold" title="Bold"></span>'}, { value: 'italic', displayValue: '<span class="property-icon property-text-italic" title="Italic"></span>'}, { value: 'underline', displayValue: '<span class="property-icon property-text-underline" title="Underline"></span>'}],
@@ -4498,6 +4559,7 @@ prx.types.ios8_map_tag = {
 					{
 	      				caption: 'Background'
 	      				,name: 'durationBgColor'
+	      				,proptype: 'background-color-2-duration'
 	      				,type: 'colorpicker'
 	      				,value: function(item,name) {
 	      					return item.durationBgColor;
@@ -4629,6 +4691,7 @@ prx.types.ios8_message_bubble = {
 				 	{
 						caption: 'Background',
 						name: 'backgroundColor',
+						proptype: 'background-color',
 						type: 'colorpicker',
 						value: function(item,name) { return item.backgroundColor; },
 						liveUpdate: 'background-color,border-color',
@@ -4720,15 +4783,15 @@ prx.components.ios7_navbar = {
 	,helper: prx.url.devices+_path + 'navbar/helper.png'
 	,image: prx.url.devices+_path + 'navbar/image.png'
 	,width: 'full'
-	,height: '88'
+	,height: 44*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: 'rgba(255,255,255,0.95)'
-	,borderWidth: 2
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderPos: 'bottom'
 	,borderColor: '#CCCCCC'
 	,title: 'Label'
 	,textFont: 'HelveticaNeue-Medium, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 34
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textColor: '#000000'
 	,textProperties: []
 	,leftBtnType: 'none'
@@ -4744,19 +4807,19 @@ prx.components.ios7_navbar_buttons = {
 	,icon: '-240px -960px'
 	,helper: prx.url.devices+_path + 'navbar_buttons/helper.png'
 	,width: 'full'
-	,height: '88'
+	,height: 44*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: 'rgba(255,255,255,0.95)'
-	,borderWidth: 2
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderPos: 'bottom'
 	,borderColor: '#CCCCCC'
 	,title: 'Label'
 	,textFont: 'HelveticaNeue-Medium, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 34
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textColor: '#000000'
 	,textProperties: []
 	,btnTextFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,btnTextSize: 35
+	,btnTextSize: 18*prx.componentsHelper.getScale(_library)
 	,btnTextColor: '#1B9AF7'
 	,btnTextProperties: []
 	,leftBtnText: 'Back'
@@ -4774,15 +4837,15 @@ prx.components.ios7_tabbar = {
 	,caption: 'Tabbar'
 	,icon: '-320px -960px'
 	,helper: prx.url.devices+_path+ 'tabbar/helper.png'
-	,width:"full"
-	,height:"98"
+	,width: "full"
+	,height: 49*prx.componentsHelper.getScale(_library)
 	,vpos: "bottom"
 	,resizable : true
 	,backgroundColor: 'rgba(255,255,255,0.95)'
-	,borderWidth: 0
+	,borderWidth: 0*prx.componentsHelper.getScale(_library)
 	,borderColor: 'transparent'
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: "20"
+	,textSize: 10*prx.componentsHelper.getScale(_library)
 	,textColor:  '#8D8D8D'
 	,textProperties: []
 	,iconpos: 'top'
@@ -4817,12 +4880,12 @@ prx.components.ios7_toolbar = {
 	,caption: 'Toolbar'
 	,icon: '-400px -960px'
 	,helper: prx.url.devices+_path+ 'toolbar/helper.png'
-	,width:"full"
-	,height:"88"
+	,width: "full"
+	,height: 44*prx.componentsHelper.getScale(_library)
 	,vpos: "bottom"
 	,resizable : true
 	,backgroundColor: 'rgba(255,255,255,0.95)'
-	,borderWidth: 2
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderPos: 'top'
 	,borderColor: '#CCCCCC'
 	,overlay: false
@@ -4857,8 +4920,8 @@ prx.components.ios7_statusbar = {
 	,caption: 'Statusbar'
 	,icon: '-400px -1280px'
 	,helper: prx.url.devices+_path+ 'statusbar/helper.png'
-	,width:"full"
-	,height:"40"
+	,width: "full"
+	,height: 20*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: '#000000'
 	,foregroundColor: '#ffffff'
@@ -4873,16 +4936,16 @@ prx.components.ios7_button_bg = {
 	,icon: '-720px -960px'
 	,helper: prx.url.devices+_path + 'button_bg/helper.png'
 	,image: prx.url.devices+_path + 'button_bg/image.png'
-	,width: '400'
-	,height: '88'
+	,width: 200*prx.componentsHelper.getScale(_library)
+	,height: 44*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: '#1B9AF7'
 	,borderWidth: 0
 	,borderColor: '#FFFFFF'
-	,borderRadius: 15
+	,borderRadius: 8*prx.componentsHelper.getScale(_library)
 	,text: 'Label'
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 35
+	,textSize: 18*prx.componentsHelper.getScale(_library)
 	,textColor: '#FFFFFF'
 	,textProperties: []
 	,textAlign: 'center'
@@ -4898,12 +4961,12 @@ prx.components.ios7_button = {
 	,icon: '-640px -960px'
 	,helper: prx.url.devices+_path + 'button/helper.png'
 	,image: prx.url.devices+_path + 'button/image.png'
-	,width: '200'
-	,height: '88'
+	,width: 100*prx.componentsHelper.getScale(_library)
+	,height: 44*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,text: 'Label'
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 35
+	,textSize: 18*prx.componentsHelper.getScale(_library)
 	,textColor: '#1B9AF7'
 	,textProperties: []
 	,textAlign: 'center'
@@ -4919,8 +4982,8 @@ prx.components.ios7_button_icon = {
 	,icon: '-560px -960px'
 	,helper: prx.url.devices+_path + 'button_icon/helper.png'
 	,image: prx.url.devices+_path + 'button_icon/image.png'
-	,width: '88'
-	,height: '88'
+	,width: 44*prx.componentsHelper.getScale(_library)
+	,height: 44*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,textAlign: 'center'
 	,iconpos: 'notext'
@@ -4935,12 +4998,12 @@ prx.components.ios7_button_text = {
 	,icon: '-480px -960px'
 	,helper: prx.url.devices+_path + 'button_text/helper.png'
 	,image: prx.url.devices+_path + 'button_text/image.png'
-	,width: '200'
-	,height: '88'
+	,width: 100*prx.componentsHelper.getScale(_library)
+	,height: 44*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,text: 'Label'
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 35
+	,textSize: 18*prx.componentsHelper.getScale(_library)
 	,textColor: '#1B9AF7'
 	,textProperties: []
 	,textAlign: 'center'
@@ -4955,11 +5018,11 @@ prx.components.ios7_button_icon_circular = {
 	,icon: '0px -1040px'
 	,helper: prx.url.devices+_path + 'button_icon_circular/helper.png'
 	,image: prx.url.devices+_path + 'button_icon_circular/image.png'
-	,width: '88'
-	,height: '88'
+	,width: 44*prx.componentsHelper.getScale(_library)
+	,height: 44*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: 'rgba(0,0,0,0)'
-	,borderWidth: 4
+	,borderWidth: 2*prx.componentsHelper.getScale(_library)
 	,borderColor: '#000000'
 	,borderRadius: '50%'
 	,textAlign: 'center'
@@ -4976,11 +5039,11 @@ prx.components.ios7_button_icon_square = {
 	,icon: '-80px -1040px'
 	,helper: prx.url.devices+_path + 'button_icon_square/helper.png'
 	,image: prx.url.devices+_path + 'button_icon_square/image.png'
-	,width: '88'
-	,height: '88'
+	,width: 44*prx.componentsHelper.getScale(_library)
+	,height: 44*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: 'rgba(0,0,0,0)'
-	,borderWidth: 4
+	,borderWidth: 2*prx.componentsHelper.getScale(_library)
 	,borderColor: '#000000'
 	,borderRadius: '15'
 	,textAlign: 'center'
@@ -4995,8 +5058,8 @@ prx.components.ios7_button_ui = {
 	,caption: 'UI Button'
 	,icon: '-480px -1280px'
 	,helper: prx.url.devices+_path + 'button_ui/helper.png'
-	,width: '44'
-	,height: '44'
+	,width: 22*prx.componentsHelper.getScale(_library)
+	,height: 22*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: '#49E845'
 	,borderRadius: '50%'
@@ -5013,16 +5076,16 @@ prx.components.ios7_segmentedcontrol = {
 	,icon: '-160px -1040px'
 	,helper: prx.url.devices+_path + 'segmentedcontrol/helper.png'
 	,image: prx.url.devices+_path + 'segmentedcontrol/image.png'
-	,width: '450'
-	,height: '60'
+	,width: 225*prx.componentsHelper.getScale(_library)
+	,height: 30*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: 'rgba(0,0,0,0)'
 	,activeBackgroundColor: '#1B9AF7'
-	,borderWidth: 2
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: '#1B9AF7'
-	,borderRadius: 10
+	,borderRadius: 5*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 25
+	,textSize: 13*prx.componentsHelper.getScale(_library)
 	,textColor: '#1B9AF7'
 	,textProperties: []
 	,activeTextColor: '#FFFFFF'
@@ -5044,8 +5107,8 @@ prx.components.ios7_pagecontroller = {
 	,icon: '-240px -1040px'
 	,helper: prx.url.devices+_path + 'pagecontroller/helper.png'
 	,image: prx.url.devices+_path + 'pagecontroller/image.png'
-	,width: '150'
-	,height: '16'
+	,width: 75*prx.componentsHelper.getScale(_library)
+	,height: 8*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: '#1B9AF7'
 	,activeBackgroundColor: '#FFFFFF'
@@ -5068,12 +5131,12 @@ prx.components.ios7_label = {
 	,icon: '-320px -1040px'
 	,helper: prx.url.devices+_path + 'label/helper.png'
 	,image: prx.url.devices+_path + 'label/image.png'
-	,width: '500'
-	,height: '88'
+	,width: 250*prx.componentsHelper.getScale(_library)
+	,height: 44*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 27
+	,textSize: 14*prx.componentsHelper.getScale(_library)
 	,textColor: '#999999'
 	,textProperties: []
 	,textAlign: 'center'
@@ -5086,18 +5149,18 @@ prx.components.ios7_textfield = {
 	,caption: 'Text Field'
 	,icon: '-400px -1040px'
 	,helper: prx.url.devices+_path + 'textfield/helper.png'
-	,width:"300"
-	,height:"40"
+	,width: 150*prx.componentsHelper.getScale(_library)
+	,height: 20*prx.componentsHelper.getScale(_library)
 	,value: ''
 	,placeholder: 'Placeholder'
 	,inputtype: 'text'
 	,backgroundColor: 'rgba(0,0,0,0)'
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: "18"
+	,textSize: 9*prx.componentsHelper.getScale(_library)
 	,textColor:  '000000'
 	,placeholderColor: '999999'
-	,borderWidth: 0
-	,borderRadius: 5
+	,borderWidth: 0*prx.componentsHelper.getScale(_library)
+	,borderRadius: 3*prx.componentsHelper.getScale(_library)
 	,borderColor: 'cccccc'
 	,textAlign: 'left'
 }
@@ -5109,18 +5172,18 @@ prx.components.ios7_passwordfield = {
 	,caption: 'Password Field'
 	,icon: '-480px -1040px'
 	,helper: prx.url.devices+_path + 'textfield/helper.png'
-	,width:"300"
-	,height:"40"
+	,width: 150*prx.componentsHelper.getScale(_library)
+	,height: 20*prx.componentsHelper.getScale(_library)
 	,value: ''
 	,placeholder: 'Placeholder'
 	,inputtype: 'password'
 	,backgroundColor: 'rgba(0,0,0,0)'
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: "18"
+	,textSize: 9*prx.componentsHelper.getScale(_library)
 	,textColor: '000000'
 	,placeholderColor: '999999'
-	,borderWidth: 0
-	,borderRadius: 5
+	,borderWidth: 0*prx.componentsHelper.getScale(_library)
+	,borderRadius: 3*prx.componentsHelper.getScale(_library)
 	,borderColor: 'cccccc'
 	,textAlign: 'left'
 }
@@ -5132,17 +5195,17 @@ prx.components.ios7_textarea = {
 	,caption: 'Textarea'
 	,icon: '-560px -1040px'
 	,helper: prx.url.devices+_path + 'textarea/helper.png'
-	,width:"300"
-	,height:"150"
+	,width: 150*prx.componentsHelper.getScale(_library)
+	,height: 75*prx.componentsHelper.getScale(_library)
 	,value: ''
 	,placeholder: 'Placeholder'
 	,backgroundColor: 'rgba(0,0,0,0)'
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: "18"
+	,textSize: 9*prx.componentsHelper.getScale(_library)
 	,textColor: '000000'
 	,placeholderColor: '999999'
-	,borderWidth: 0
-	,borderRadius: 5
+	,borderWidth: 0*prx.componentsHelper.getScale(_library)
+	,borderRadius: 3*prx.componentsHelper.getScale(_library)
 	,borderColor: 'cccccc'
 	,textAlign: 'left'
 }
@@ -5155,12 +5218,12 @@ prx.components.ios7_checkbox = {
 	,icon: '-720px -1040px'
 	,helper: prx.url.devices+_path + 'checkbox/helper.png'
 	,image: prx.url.devices+_path + 'checkbox/image.png'
-	,width: '44'
-	,height: '44'
+	,width: 22*prx.componentsHelper.getScale(_library)
+	,height: 22*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: 'rgba(0,0,0,0)'
 	,activeBackgroundColor: '#1B9AF7'
-	,borderWidth: 2
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: '#999999'
 	,borderRadius: '50%'
 	,img: {"fileId":"34d6599607c21d5f87e5d30af9449c1c.svg","name":"check.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/34d6599607c21d5f87e5d30af9449c1c.svg","folderId":"f1352971179296","targetSrc":"generated/34d6599607c21d5f87e5d30af9449c1c_ffffff.svg","color":"ffffff"}
@@ -5174,11 +5237,11 @@ prx.components.ios7_switch = {
 	,caption: 'On/Off Switch'
 	,icon: '0px -1120px'
 	,helper: prx.url.devices+_path + 'switch/helper.png'
-	,width:"100"
-	,height:"60"
+	,width: 50*prx.componentsHelper.getScale(_library)
+	,height: 30*prx.componentsHelper.getScale(_library)
 	,inactiveLabelColor: '#FFFFFF'
 	,activeLabelColor: '#49E845'
-	,borderWidth: 2
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,inactiveBorderColor: '#CCCCCC'
 	,activeBorderColor: '#49E845'
 	,switchColor: 'FFFFFF'
@@ -5191,10 +5254,10 @@ prx.components.ios7_slider = {
 	,caption: 'Slider'
 	,icon: '-80px -1120px'
 	,helper: prx.url.devices+_path + 'slider/helper.png'
-	,width:"300"
-	,height:"30"
+	,width: 150*prx.componentsHelper.getScale(_library)
+	,height: 15*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,barThickness: 4
+	,barThickness: 2*prx.componentsHelper.getScale(_library)
 	,barColor: '999999'
 	,fillBarColor: '1B9AF7'
 	,sliderColor: 'ffffff'
@@ -5210,15 +5273,15 @@ prx.components.ios7_picker = {
 	,caption: 'Picker'
 	,icon: '-160px -1120px'
 	,helper: prx.url.devices+_path + 'picker/helper.png'
-	,width:"full"
-	,height:"300"
+	,width: "full"
+	,height: 150*prx.componentsHelper.getScale(_library)
 	,vpos: "bottom"
 	,resizable : true
 	,backgroundColor: 'ffffff'
 	,textColor: 'CCCCCC'
 	,activeTextColor: '333333'
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 32
+	,textSize: 16*prx.componentsHelper.getScale(_library)
 	,textProperties: []
 	,textAlign: 'center'
 	,values: "Label 1<br />Label 2<br />Label 3<br />Label 4<br />Label 5"
@@ -5232,17 +5295,17 @@ prx.components.ios8_searchbar = {
 	,caption: 'Search Bar'
 	,icon: '-890px -720px'
 	,helper: prx.url.devices+_path + 'searchbar/helper.png'
-	,width:"300"
-	,height:"40"
+	,width: 150*prx.componentsHelper.getScale(_library)
+	,height: 20*prx.componentsHelper.getScale(_library)
 	,value: ''
 	,placeholder: 'Search'
 	,backgroundColor: 'ffffff'
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: "18"
+	,textSize: 9*prx.componentsHelper.getScale(_library)
 	,textColor:  '000000'
 	,placeholderColor: '999999'
-	,borderWidth: 2
-	,borderRadius: 5
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
+	,borderRadius: 3*prx.componentsHelper.getScale(_library)
 	,borderColor: 'cccccc'
 	,imgSrc: {"fileId":"14870b88002e540a4d1fc9c2d2a88384.svg","name":"search.svg","assetType":"icon","bucketsource":"static","url":"f1352971179296/14870b88002e540a4d1fc9c2d2a88384.svg","folderId":"f1352971179296","targetSrc":"generated/14870b88002e540a4d1fc9c2d2a88384_999999.svg","color":"999999"}
 	,imgSrc2: {"fileId":"61a2922cfa9b623512ce97a21983a037.svg","name":"cr-delete.svg","assetType":"icon","bucketsource":"static","url":"f1352449307873/61a2922cfa9b623512ce97a21983a037.svg","folderId":"f1352449307873","targetSrc":"generated/61a2922cfa9b623512ce97a21983a037_999999.svg","color":"999999"}
@@ -5256,16 +5319,16 @@ prx.components.ios7_listbasic = {
 	,icon: '-240px -1120px'
 	,helper: prx.url.devices+_path + 'listbasic/helper.png'
 	,width: "full"
-	,height:"178"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-  	,subSize: 26
+  	,subSize: 13*prx.componentsHelper.getScale(_library)
   	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
   	,subColor: '999999'
   	,subProperties: []
@@ -5303,17 +5366,17 @@ prx.components.ios7_listnested = {
 	,caption: 'Nested List'
 	,icon: '-320px -1120px'
 	,helper: prx.url.devices+_path + 'listnested/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,subColor: '999999'
 	,subProperties: []
@@ -5353,17 +5416,17 @@ prx.components.ios7_listwithicon = {
 	,caption: 'List with Icon'
 	,icon: '-400px -1120px'
 	,helper: prx.url.devices+_path + 'listbasic/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
   	,subColor: '999999'
   	,subProperties: []
@@ -5404,21 +5467,21 @@ prx.components.ios7_listwithvalue = {
 	,caption: 'List with Value'
 	,icon: '-480px -1120px'
 	,helper: prx.url.devices+_path + 'listwithvalue/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,subColor: '999999'
 	,subProperties: []
-    ,valueSize: 32
+    ,valueSize: 16*prx.componentsHelper.getScale(_library)
 	,valueFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,valueColor: '999999'
 	,valueProperties: []
@@ -5457,21 +5520,21 @@ prx.components.ios7_listnestedwithvalue = {
 	,caption: 'Nested List with Value'
 	,icon: '-560px -1120px'
 	,helper: prx.url.devices+_path + 'listnestedwithvalue/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
   	,subColor: '999999'
   	,subProperties: []
-    ,valueSize: 32
+    ,valueSize: 16*prx.componentsHelper.getScale(_library)
 	,valueFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,valueColor: '999999'
 	,valueProperties: []
@@ -5514,21 +5577,21 @@ prx.components.ios7_listwithiconandvalue = {
 	,caption: 'List with Icon and Value'
 	,icon: '-640px -1120px'
 	,helper: prx.url.devices+_path + 'listwithvalue/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
   	,subColor: '999999'
   	,subProperties: []
-    ,valueSize: 32
+    ,valueSize: 16*prx.componentsHelper.getScale(_library)
 	,valueFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,valueColor: '999999'
 	,valueProperties: []
@@ -5571,21 +5634,21 @@ prx.components.ios7_listwithbadge = {
 	,caption: 'List with Badge'
 	,icon: '-720px -1120px'
 	,helper: prx.url.devices+_path + 'listwithbadge/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,subColor: '999999'
 	,subProperties: []
-    ,badgeSize: 18
+    ,badgeSize: 9*prx.componentsHelper.getScale(_library)
 	,badgeFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,badgeColor: 'ffffff'
 	,badgeProperties: []
@@ -5625,21 +5688,21 @@ prx.components.ios7_listnestedwithbadge = {
 	,caption: 'Nested List with Badge'
 	,icon: '0px -1200px'
 	,helper: prx.url.devices+_path + 'listnestedwithbadge/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,subColor: '999999'
 	,subProperties: []
-    ,badgeSize: 18
+    ,badgeSize: 9*prx.componentsHelper.getScale(_library)
 	,badgeFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,badgeColor: 'ffffff'
 	,badgeProperties: []
@@ -5683,21 +5746,21 @@ prx.components.ios7_listwithiconandbadge = {
 	,caption: 'List with Icon and Badge'
 	,icon: '-80px -1200px'
 	,helper: prx.url.devices+_path + 'listwithbadge/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,subColor: '999999'
 	,subProperties: []
-    ,badgeSize: 18
+    ,badgeSize: 9*prx.componentsHelper.getScale(_library)
 	,badgeFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,badgeColor: 'ffffff'
 	,badgeProperties: []
@@ -5741,17 +5804,17 @@ prx.components.ios7_listradio = {
 	,caption: 'Radio List'
 	,icon: '0px -1280px'
 	,helper: prx.url.devices+_path + 'listradio/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
   	,subColor: '999999'
   	,subProperties: []
@@ -5794,17 +5857,17 @@ prx.components.ios7_listcheckbox = {
 	,caption: 'Checkbox List'
 	,icon: '-720px -1200px'
 	,helper: prx.url.devices+_path + 'listcheckbox/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
   	,subColor: '999999'
   	,subProperties: []
@@ -5847,25 +5910,25 @@ prx.components.ios7_listcomplex = {
 	,caption: 'Complex List'
 	,icon: '-80px -1280px'
 	,helper: prx.url.devices+_path + 'listbasic/helper.png'
-	,width:"full"
-	,height:"178"
+	,width: "full"
+	,height: 89*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: 'CCCCCC'
-	,textSize: 35
+	,textSize: 18*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '333333'
 	,textAlign: 'left'
 	,textProperties: []
-	,subSize: 26
+	,subSize: 13*prx.componentsHelper.getScale(_library)
 	,subFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,subColor: '999999'
 	,subProperties: []
-    ,valueSize: 32
+    ,valueSize: 16*prx.componentsHelper.getScale(_library)
 	,valueFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,valueColor: '999999'
 	,valueProperties: []
-    ,badgeSize: 18
+    ,badgeSize: 9*prx.componentsHelper.getScale(_library)
 	,badgeFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,badgeColor: 'ffffff'
 	,badgeProperties: []
@@ -5914,10 +5977,10 @@ prx.components.ios7_list_header = {
 	,caption: 'List Header'
 	,icon: '-160px -1280px'
 	,helper: prx.url.devices+_path + 'list_header/helper.png'
-	,width:"full"
-	,height:"40"
+	,width: "full"
+	,height: 20*prx.componentsHelper.getScale(_library)
 	,resizable : true
-	,textSize: 32
+	,textSize: 16*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Medium, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: '000000'
 	,textAlign: 'left'
@@ -5934,14 +5997,14 @@ prx.components.ios7_alert = {
 	,icon: '-160px -1200px'
 	,helper: prx.url.devices+_path + 'alert/helper.png'
 	,image: prx.url.devices+_path + 'alert/image.png'
-	,width: '500'
-	,height: '300'
+	,width: 250*prx.componentsHelper.getScale(_library)
+	,height: 150*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: 'rgba(255,255,255,0.95)'
 	,borderColor: '#CCCCCC'
-	,borderRadius: 5
+	,borderRadius: 3*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 34
+	,textSize: 17*prx.componentsHelper.getScale(_library)
 	,textColor: '#333333'
 	,title: 'Alert title'
 	,text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit'
@@ -5966,39 +6029,39 @@ prx.components.ios7_actionsheet_title = {
 	,icon: '-320px -1200px'
 	,helper: prx.url.devices+_path + 'actionsheet_title/helper.png'
 	,image: prx.url.devices+_path + 'actionsheet_title/image.png'
-	,width: '500'
-	,height: '325'
+	,width: 250*prx.componentsHelper.getScale(_library)
+	,height: 163*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: 'rgba(255,255,255,0.95)'
 	,borderColor: '#CCCCCC'
-	,borderRadius: 5
+	,borderRadius: 3*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 40
+	,textSize: 20*prx.componentsHelper.getScale(_library)
 	,showtitle: true
 	,detachlast: true
 	,buttons: [{
 		actions: [],
 		text: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit?',
 		textColor: '#999999',
-		titleTextSize: 16,
+		titleTextSize: 16*prx.componentsHelper.getScale(_library),
 		textProperties: []
 	},{
 		actions: [],
 		text: 'Delete',
 		textColor: '#FF3B30',
-		titleTextSize: 16,
+		titleTextSize: 16*prx.componentsHelper.getScale(_library),
 		textProperties: []
 	},{
 		actions: [],
 		text: 'Save',
 		textColor: '#1B9AF7',
-		titleTextSize: 16,
+		titleTextSize: 16*prx.componentsHelper.getScale(_library),
 		textProperties: []
 	},{
 		actions: [],
 		text: 'Cancel',
 		textColor: '#1B9AF7',
-		titleTextSize: 16,
+		titleTextSize: 16*prx.componentsHelper.getScale(_library),
 		textProperties: ['bold']
 	}]
 };
@@ -6011,14 +6074,14 @@ prx.components.ios7_actionsheet = {
 	,icon: '-240px -1200px'
 	,helper: prx.url.devices+_path + 'actionsheet/helper.png'
 	,image: prx.url.devices+_path + 'actionsheet/image.png'
-	,width: '500'
-	,height: '250'
+	,width: 250*prx.componentsHelper.getScale(_library)
+	,height: 125*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: 'rgba(255,255,255,0.95)'
 	,borderColor: '#CCCCCC'
-	,borderRadius: 5
+	,borderRadius: 3*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 40
+	,textSize: 20*prx.componentsHelper.getScale(_library)
 	,showtitle: false
 	,detachlast: true
 	,buttons: [{
@@ -6047,18 +6110,18 @@ prx.components.ios7_control_popover = {
 	,icon: '-400px -1200px'
 	,helper: prx.url.devices+_path + 'control_popover/helper.png'
 	,image: prx.url.devices+_path + 'control_popover/image.png'
-	,width: '450'
-	,height: '80'
+	,width: 225*prx.componentsHelper.getScale(_library)
+	,height: 40*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: '000000'
-	,borderWidth: 1
+	,borderWidth: 1*prx.componentsHelper.getScale(_library)
 	,borderColor: '#FFFFFF'
-	,borderRadius: 10
+	,borderRadius: 5*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-	,textSize: 25
+	,textSize: 13*prx.componentsHelper.getScale(_library)
 	,textColor: '#FFFFFF'
 	,textProperties: []
-	,tooltipSize: 20
+	,tooltipSize: 10*prx.componentsHelper.getScale(_library)
 	,tooltipPosition: 10
 	,buttons: [{
 		actions: [],
@@ -6080,12 +6143,12 @@ prx.components.ios7_popover = {
 	,icon: '-640px -1200px'
 	,helper: prx.url.devices+_path + 'popover/helper.png'
 	,image: prx.url.devices+_path + 'popover/image.png'
-	,width: '450'
-	,height: '300'
+	,width: 225*prx.componentsHelper.getScale(_library)
+	,height: 150*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,backgroundColor: 'rgba(255,255,255,0.95)'
-	,borderRadius: 10
-	,tooltipSize: 20
+	,borderRadius: 5*prx.componentsHelper.getScale(_library)
+	,tooltipSize: 10*prx.componentsHelper.getScale(_library)
 	,tooltipSide: 'top'
 	,tooltipPosition: 50
 };
@@ -6098,8 +6161,8 @@ prx.components.ios7_progressbar = {
 	,caption: 'Progress bar'
 	,icon: '-320px -1280px'
 	,helper: prx.url.devices+_path + 'progressbar/helper.png'
-	,width:"300"
-	,height:"4"
+	,width: 150*prx.componentsHelper.getScale(_library)
+	,height: 2*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,barColor: 'CCCCCC'
 	,fillBarColor: '1B9AF7'
@@ -6114,16 +6177,16 @@ prx.components.ios7_badge = {
 	,caption: 'Badge'
 	,icon: '-480px -1200px'
 	,helper: prx.url.devices+_path + 'badge/helper.png'
-	,width:"35"
-	,height:"25"
+	,width: 18*prx.componentsHelper.getScale(_library)
+	,height: 13*prx.componentsHelper.getScale(_library)
 	,resizable : true
 	,text: '1'
-    ,textSize: 18
+    ,textSize: 9*prx.componentsHelper.getScale(_library)
 	,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
 	,textColor: 'ffffff'
 	,textProperties: []
     ,backgroundColor: 'FF4351'
-    ,borderRadius: 12
+    ,borderRadius: 6*prx.componentsHelper.getScale(_library)
 }
 
 prx.components.ios8_map_tag = {
@@ -6133,16 +6196,16 @@ prx.components.ios8_map_tag = {
 		,caption: 'Map tag'
 		,icon: '-810px -480px'
 		,helper: prx.url.devices+ _path + 'map_tag/helper.png'
-		,width:"300"
-		,height:"60"
+		,width: 150*prx.componentsHelper.getScale(_library)
+		,height: 30*prx.componentsHelper.getScale(_library)
 		,resizable : true
 		,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-		,textSize: "18"
+		,textSize: 9*prx.componentsHelper.getScale(_library)
 		,textColor:  '000000'
 		,textProperties: []
 		,text: 'Map Tag'
 		,durationFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-		,durationSize: "11"
+		,durationSize: 6*prx.componentsHelper.getScale(_library)
 		,durationColor:  'ffffff'
 		,durationProperties: []
 		,durationBgColor:  '#27A1CA'
@@ -6160,13 +6223,13 @@ prx.components.ios8_message_bubble = {
 		,caption: 'Message bubble'
 		,icon: '-810px -400px'
 		,helper: prx.url.devices+ _path +'message_bubble/helper.png'
-		,width: '350'
-		,height: '150'
+		,width: 175*prx.componentsHelper.getScale(_library)
+		,height: 75*prx.componentsHelper.getScale(_library)
 		,resizable : true
 		,backgroundColor: 'e5e5ea'
 		,text: 'Hi! I am the default message.'
 		,textFont: 'HelveticaNeue-Light, Helvetica, Verdana, Arial, sans-serif'
-		,textSize: '18'
+		,textSize: 9*prx.componentsHelper.getScale(_library)
 		,textColor: '000000'
 		,textAlign: 'left'
 		,textProperties: []
