@@ -1902,7 +1902,9 @@ prx.types.ios7_switch = {
 						}
 						,changeProperty: {
 							caption: 'Active',
-							rerender: true
+							selector: 'input',
+							property: 'checkbox-state',
+							transitionable: false
 						}
 					},
 				]
